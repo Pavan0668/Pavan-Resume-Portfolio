@@ -23,7 +23,7 @@ export default function CTASection() {
     };
 
     return (
-        <section id="contact" className="py-32 relative z-10 bg-background transition-colors">
+        <section id="contact" className="py-20 relative z-10 bg-background transition-colors">
             <div className="max-w-4xl mx-auto px-6">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}

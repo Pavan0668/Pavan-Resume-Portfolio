@@ -47,7 +47,7 @@ const aiServices = [
 
 export default function ServiceGrid() {
     return (
-        <section id="services" className="py-32 relative z-10 bg-background transition-colors duration-300">
+        <section id="services" className="py-20 relative z-10 bg-background transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="text-center mb-20">
                     <motion.h2

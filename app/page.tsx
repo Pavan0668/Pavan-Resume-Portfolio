@@ -1,5 +1,5 @@
 import Navbar from "@/components/ui/Navbar";
-import HeroSection from "@/components/ui/HeroSection";
+import VideoHeroSlider from "@/components/ui/VideoHeroSlider";
 import ServiceGrid from "@/components/ui/ServiceGrid";
 import StatsSection from "@/components/ui/StatsSection";
 import InnovationTabs from "@/components/ui/InnovationTabs";
@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-background text-foreground relative selection:bg-indigo-500/30 selection:text-foreground">
       <Navbar />
-      <HeroSection />
+      <VideoHeroSlider />
       <ServiceGrid />
       <StatsSection />
       <InnovationTabs />

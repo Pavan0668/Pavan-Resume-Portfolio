@@ -5,7 +5,7 @@ import { Twitter, Linkedin, Github, Facebook, Instagram, Phone, Mail, MapPin } f
 
 export default function Footer() {
     return (
-        <footer className="border-t border-foreground/10 bg-background relative z-10 pt-20 pb-8 transition-colors">
+        <footer className="border-t border-foreground/10 bg-background relative z-10 pt-16 pb-8 transition-colors">
             <div className="max-w-7xl mx-auto px-6">
 
                 {/* Main 4-Column Layout */}
