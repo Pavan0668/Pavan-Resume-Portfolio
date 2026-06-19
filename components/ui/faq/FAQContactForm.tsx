@@ -32,7 +32,7 @@ export function FAQContactForm() {
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-lg">Email us directly</h4>
-                                    <p className="text-foreground/60">contact@jkcomputers.com</p>
+                                    <p className="text-foreground/60">jkcsolutionspune@gmail.com</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-4">
@@ -41,7 +41,7 @@ export function FAQContactForm() {
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-lg">Call our support</h4>
-                                    <p className="text-foreground/60">+1 (555) 123-4567</p>
+                                    <p className="text-foreground/60">+91 866 826 2359</p>
                                 </div>
                             </div>
                         </div>
