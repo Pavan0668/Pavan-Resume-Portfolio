@@ -52,7 +52,7 @@ export default function ContactHero() {
                             </div>
                             <div>
                                 <p className="text-xs font-semibold text-foreground/50 uppercase tracking-wider">Phone</p>
-                                <p className="text-sm font-medium text-foreground/80 leading-tight">+91 866 826 2359</p>
+<p className="text-sm font-medium text-foreground/80 leading-tight">+91 9324310387</p>
                             </div>
                         </div>
                         <div className="glass-card rounded-2xl p-5 border border-card-border flex items-center gap-4 text-left">

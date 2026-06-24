@@ -26,7 +26,7 @@ export default function Footer() {
                         </p>
                         <div className="flex flex-col gap-3 text-sm text-foreground/70">
                             <div className="flex items-center gap-3"><MapPin className="w-4 h-4 text-indigo-500" /> 545/B, Boulevard Towers, Camp, Pune 411001</div>
-                            <div className="flex items-center gap-3"><Phone className="w-4 h-4 text-indigo-500" /> +91 866 826 2359</div>
+<div className="flex items-center gap-3"><Phone className="w-4 h-4 text-indigo-500" /> +91 9324310387</div>
                             <div className="flex items-center gap-3"><Mail className="w-4 h-4 text-indigo-500" /> jkcsolutionspune@gmail.com</div>
                         </div>
                     </div>

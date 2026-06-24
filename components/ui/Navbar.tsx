@@ -17,7 +17,7 @@ const navItems = [
         ],
     },
     {
-        name: "Expertise",
+        name: "Services",
         items: [
             { name: "Managed IT Support", href: "/expertise#managed-it-support" },
             { name: "Project Services", href: "/expertise#project-services" },
@@ -31,6 +31,7 @@ const navItems = [
     { name: "Career", href: "/career" },
     { name: "FAQ", href: "/faq" },
     { name: "Blog", href: "/blog" },
+    { name: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
@@ -153,7 +154,7 @@ export default function Navbar() {
                             ))}
                             <div className="mt-8">
                                 <Link
-                                    href="#contact"
+                                    href="/contact"
                                     onClick={() => setIsOpen(false)}
                                     className="w-full py-4 rounded-xl bg-indigo-600 text-white font-medium flex items-center justify-center transition-all shadow-lg active:scale-95"
                                 >

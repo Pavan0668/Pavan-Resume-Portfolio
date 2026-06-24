@@ -68,7 +68,7 @@ export default function ContactFormSection() {
                                     </div>
                                     <div>
                                         <h4 className="font-bold text-lg">Phone</h4>
-                                        <p className="text-foreground/60">+91 866 826 2359</p>
+                                        <p className="text-foreground/60">+91 9324310387</p>
                                     </div>
                                 </div>
                             </div>
