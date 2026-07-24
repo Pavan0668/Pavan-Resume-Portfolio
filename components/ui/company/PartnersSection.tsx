@@ -64,21 +64,21 @@ export default function PartnersSection() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.04, duration: 0.4 }}
-                            whileHover={{ y: -6, transition: { duration: 0.3 } }}
+                            whileHover={{ scale: 1.04, transition: { duration: 0.25 } }}
                             className="group"
                         >
-                            <div className="glass-card rounded-2xl p-5 flex flex-col items-center justify-center gap-3 h-[140px] border border-card-border group-hover:border-card-border-hover transition-all duration-300 group-hover:shadow-[0_8px_30px_var(--glow-shadow)]">
+                            <div className="rounded-2xl p-5 flex flex-col items-center justify-center gap-3 h-[140px] border border-slate-200 bg-white shadow-sm transition-all duration-300 group-hover:shadow-lg group-hover:border-indigo-500/30 dark:border-white/10 dark:bg-slate-900/50 dark:group-hover:border-cyan-400/30 dark:group-hover:shadow-[0_8px_30px_var(--glow-shadow)]">
                                 <div className="relative w-full h-16 flex items-center justify-center">
                                     <Image
                                         src={partner.logo}
                                         alt={`${partner.name} logo`}
                                         width={120}
                                         height={60}
-                                        className="object-contain max-h-14 w-auto filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 dark:brightness-0 dark:invert dark:opacity-50 dark:group-hover:brightness-100 dark:group-hover:invert-0 dark:group-hover:opacity-100"
+                                        className="object-contain max-h-14 w-auto transition-transform duration-300"
                                         unoptimized
                                     />
                                 </div>
-                                <p className="text-xs font-semibold text-foreground/50 group-hover:text-foreground transition-colors duration-300 text-center leading-tight">
+                                <p className="text-xs font-semibold text-foreground/60 group-hover:text-foreground transition-colors duration-300 text-center leading-tight">
                                     {partner.name}
                                 </p>
                             </div>

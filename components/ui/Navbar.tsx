@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
+import { useTheme } from "next-themes";
 import { ThemeToggle } from "./ThemeToggle";
 
 const navItems = [
@@ -37,13 +38,50 @@ const navItems = [
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+    const { resolvedTheme } = useTheme();
+    const lastScrollY = useRef(0);
 
     useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 20);
+        lastScrollY.current = window.scrollY;
+
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            const scrolledPastTop = currentScrollY > 20;
+            const scrollDelta = currentScrollY - lastScrollY.current;
+
+            setScrolled(scrolledPastTop);
+
+            if (isOpen) {
+                setIsVisible(true);
+                lastScrollY.current = currentScrollY;
+                return;
+            }
+
+            if (!scrolledPastTop) {
+                setIsVisible(true);
+            } else if (scrollDelta > 8) {
+                setIsVisible(false);
+            } else if (scrollDelta < -8) {
+                setIsVisible(true);
+            }
+
+            lastScrollY.current = currentScrollY;
+        };
+
         window.addEventListener("scroll", handleScroll);
+        handleScroll();
         return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    }, [isOpen]);
+
+    const isDarkTheme = resolvedTheme === "dark";
+    const dropdownPanelClass = isDarkTheme
+        ? "absolute top-full left-0 mt-2 w-64 rounded-xl p-2 shadow-xl border border-foreground/10 overflow-hidden bg-gray-800 text-foreground"
+        : "absolute top-full left-0 mt-2 w-64 rounded-xl p-2 shadow-xl border border-slate-200 overflow-hidden bg-white text-slate-900 shadow-[0_20px_50px_rgba(15,23,42,0.12)]";
+    const dropdownItemClass = isDarkTheme
+        ? "block px-4 py-2.5 text-sm text-foreground/70 hover:text-indigo-400 hover:bg-white/20 rounded-lg transition-colors flex items-center justify-between group/link"
+        : "block px-4 py-2.5 text-sm text-slate-600 hover:text-indigo-600 hover:bg-slate-100 rounded-lg transition-colors flex items-center justify-between group/link";
 
     // Prevent scroll when mobile menu is open
     useEffect(() => {
@@ -53,24 +91,26 @@ export default function Navbar() {
 
     return (
         <>
+            {/*
+              Desktop nav items stay flat by default.
+              The card-style treatment is only applied on hover so the light theme
+              shows a clean white surface while the dark theme keeps its current look.
+            */}
             <motion.header
                 initial={{ y: -100 }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.6 }}
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass border-b shadow-sm ${scrolled ? "border-foreground/10 py-0" : "border-transparent py-2"
+                animate={{ y: isVisible ? 0 : -110 }}
+                transition={{ duration: 0.28, ease: "easeOut" }}
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass border-b shadow-sm ${scrolled ? "border-foreground/10 py-0" : "border-transparent py-0"
                     }`}
             >
-                <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-2 group z-50 relative">
+                <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+                    <Link href="/" className="flex items-center gap-2 group z-50 relative shrink-0">
                         <div className="relative w-12 h-12 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                             <img src="/logo.png" alt="JKC Solutions" className="w-full h-full object-contain" />
                         </div>
-                        {/* <span className="text-xl font-bold tracking-tight text-foreground transition-colors">
-
-                        </span> */}
                     </Link>
 
-                    <nav className="hidden lg:flex items-center gap-6 text-sm font-medium">
+                    <nav className="hidden lg:flex items-center gap-6 text-sm font-medium flex-1 justify-end mr-10">
                         {navItems.map((item) => (
                             <div
                                 key={item.name}
@@ -79,19 +119,22 @@ export default function Navbar() {
                                 onMouseLeave={() => setActiveDropdown(null)}
                             >
                                 {item.items ? (
-                                    <div className="flex items-center gap-1">
-                                        <Link href="/expertise" className="text-foreground/80 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2">
+                                    <div className="flex items-center gap-0.5 rounded-lg px-2 py-1.5 border border-transparent transition-all duration-200 hover:bg-white hover:border-slate-200 hover:shadow-md dark:hover:bg-white/25 dark:hover:border-white/10">
+                                        <Link href="/expertise" className="text-foreground/80 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors whitespace-nowrap">
                                             {item.name}
                                         </Link>
                                         <button
-                                            className="text-foreground/80 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2"
+                                            className="text-foreground/80 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                                             onClick={() => setActiveDropdown(activeDropdown === item.name ? null : item.name)}
                                         >
                                             <ChevronDown className="w-4 h-4" />
                                         </button>
                                     </div>
                                 ) : (
-                                    <Link href={item.href!} className="text-foreground/80 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors py-2 block">
+                                    <Link
+                                        href={item.href!}
+                                        className="text-foreground/80 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-200 px-3 py-1.5 whitespace-nowrap block rounded-lg border border-transparent hover:bg-white hover:border-slate-200 hover:shadow-md dark:hover:bg-white/25 dark:hover:border-white/10"
+                                    >
                                         {item.name}
                                     </Link>
                                 )}
@@ -105,13 +148,13 @@ export default function Navbar() {
                                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
                                                 transition={{ duration: 0.2 }}
-                                                className="absolute top-full left-0 mt-2 w-64 glass-card rounded-xl p-2 shadow-xl border border-foreground/10 overflow-hidden"
+                                                className={dropdownPanelClass}
                                             >
                                                 {item.items.map((subItem) => (
                                                     <Link
                                                         key={subItem.name}
                                                         href={subItem.href}
-                                                        className="block px-4 py-2.5 text-sm text-foreground/70 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-foreground/5 rounded-lg transition-colors flex items-center justify-between group/link"
+                                                        className={dropdownItemClass}
                                                     >
                                                         {subItem.name}
                                                         <ChevronRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all" />
@@ -125,7 +168,7 @@ export default function Navbar() {
                         ))}
                     </nav>
 
-                    <div className="flex items-center gap-4 z-50">
+                    <div className="flex items-center gap-3 z-50 shrink-0">
                         <ThemeToggle />
                         <button
                             className="lg:hidden w-10 h-10 flex items-center justify-center rounded-full glass text-foreground"
@@ -169,13 +212,19 @@ export default function Navbar() {
     );
 }
 
-function MobileMenuItem({ item, onClick }: { item: any, onClick: () => void }) {
+type NavItem = {
+    name: string;
+    href?: string;
+    items?: { name: string; href: string }[];
+};
+
+function MobileMenuItem({ item, onClick }: { item: NavItem; onClick: () => void }) {
     const [isOpen, setIsOpen] = useState(false);
 
     if (!item.items) {
         return (
             <Link
-                href={item.href}
+                href={item.href!}
                 onClick={onClick}
                 className="block py-4 text-xl font-semibold text-foreground border-b border-foreground/10 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
             >
@@ -204,7 +253,7 @@ function MobileMenuItem({ item, onClick }: { item: any, onClick: () => void }) {
                         className="overflow-hidden"
                     >
                         <div className="pb-4 flex flex-col gap-2 pl-4 border-l-2 border-indigo-500/30 ml-2 mt-2">
-                            {item.items.map((subItem: any) => (
+                            {item.items.map((subItem) => (
                                 <Link
                                     key={subItem.name}
                                     href={subItem.href}

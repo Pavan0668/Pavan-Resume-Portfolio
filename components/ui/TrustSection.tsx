@@ -1,16 +1,62 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { Handshake } from "lucide-react";
 
 const partners = [
-    "Microsoft", "Google Cloud", "Amazon Web Services", "OpenAI", "Anthropic", "Cloudflare", "Vercel", "Stripe"
+    { name: "Microsoft", icon: "microsoft" },
+    { name: "Google Cloud", icon: "googlecloud" },
+    { name: "Amazon Web Services", icon: "amazonwebservices" },
+    { name: "OpenAI", icon: "openai" },
+    { name: "Anthropic", icon: "anthropic" },
+    { name: "Cloudflare", icon: "cloudflare" },
+    { name: "Vercel", icon: "vercel" },
+    { name: "Stripe", icon: "stripe" },
 ];
+
+function PartnerLogo({ name, icon }: { name: string; icon: string }) {
+    const [imgError, setImgError] = useState(false);
+
+    return (
+        <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl overflow-hidden bg-white/10 flex items-center justify-center p-2.5 border border-white/5">
+            {!imgError ? (
+                <img
+                    src={`https://cdn.simpleicons.org/${icon}`}
+                    alt={name}
+                    className="w-full h-full object-contain"
+                    onError={() => setImgError(true)}
+                />
+            ) : (
+                <span className="text-lg md:text-xl font-bold text-slate-400">
+                    {name.charAt(0)}
+                </span>
+            )}
+        </div>
+    );
+}
 
 export default function TrustSection() {
     return (
         <section id="partners" className="py-20 border-y border-white/5 bg-[#020617] relative z-10 overflow-hidden">
-            <div className="max-w-7xl mx-auto px-6 mb-12 text-center">
-                <p className="text-sm font-semibold tracking-widest text-slate-500 uppercase">Trusted by industry leaders & cutting-edge startups</p>
+            <div className="max-w-7xl mx-auto px-6 mb-12 md:mb-14 text-center">
+                <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tight mb-3 text-white"
+                >
+                    Trusted by <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Industry Leaders</span>
+                </motion.h2>
+                <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 }}
+                    className="text-slate-500 max-w-2xl mx-auto text-sm md:text-base font-medium"
+                >
+                    Partnering with the most innovative companies worldwide to deliver cutting-edge solutions.
+                </motion.p>
             </div>
 
             <div className="relative flex overflow-x-hidden">
@@ -31,9 +77,14 @@ export default function TrustSection() {
                     {[...partners, ...partners].map((partner, index) => (
                         <div
                             key={index}
-                            className="flex-none text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-slate-400 to-slate-600 opacity-60 hover:opacity-100 transition-opacity"
+                            className="flex-none flex flex-col items-center gap-3"
                         >
-                            {partner}
+                            {/* Partner Logo */}
+                            <PartnerLogo name={partner.name} icon={partner.icon} />
+                            {/* Partner Name */}
+                            <span className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-slate-400 to-slate-600 opacity-60 hover:opacity-100 transition-opacity whitespace-nowrap">
+                                {partner.name}
+                            </span>
                         </div>
                     ))}
                 </motion.div>

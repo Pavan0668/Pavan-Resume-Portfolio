@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Orbitron } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ChatAssistant } from "@/components/ui/chatbot/ChatAssistant";
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+const orbitron = Orbitron({
+  variable: "--font-orbitron",
   subsets: ["latin"],
 });
 
@@ -22,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} antialiased bg-background text-foreground selection:bg-indigo-500/30 min-h-screen`}
+        className={`${inter.variable} ${orbitron.variable} antialiased bg-background text-foreground selection:bg-indigo-500/30 min-h-screen`}
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           {children}

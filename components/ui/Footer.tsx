@@ -59,7 +59,7 @@ export default function Footer() {
                             </div>
                             <div className="group cursor-pointer">
                                 <p className="text-xs text-indigo-600 dark:text-cyan-400 font-semibold mb-1">Feb 15, 2026</p>
-                                <p className="text-sm text-foreground/80 group-hover:text-indigo-500 transition-colors">Awarded 'Best Managed IT Provider' in the tri-state area.</p>
+                                <p className="text-sm text-foreground/80 group-hover:text-indigo-500 transition-colors">Awarded Best Managed IT Provider in the tri-state area.</p>
                             </div>
                         </div>
                     </div>
