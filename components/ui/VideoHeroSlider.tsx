@@ -37,7 +37,11 @@ export default function VideoHeroSlider() {
     const currentSlide = videos[currentIndex];
 
     return (
-        <section id="home-hero" className="home-snap-section relative w-full min-h-[calc(100svh-4rem)] overflow-hidden bg-black" style={{ height: "calc(100svh - 64px)" }}>
+        <section
+            id="home-hero"
+            className="relative w-full overflow-hidden bg-black"
+            style={{ minHeight: "calc(100svh - 64px)", paddingTop: "64px" }}
+        >
             {/* Video Background Slider */}
             <AnimatePresence mode="wait">
                 <motion.div
@@ -46,7 +50,7 @@ export default function VideoHeroSlider() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 1.5 }}
-                    className="absolute inset-0 z-0"
+                    className="absolute inset-x-0 top-16 bottom-0 z-0"
                 >
                     <video
                         autoPlay
@@ -64,7 +68,7 @@ export default function VideoHeroSlider() {
             </AnimatePresence>
 
             {/* Content Area - right aligned */}
-            <div className="relative z-10 flex h-full items-center justify-end px-6 md:px-12 lg:px-20">
+            <div className="relative z-10 flex min-h-[calc(100svh-4rem)] items-center justify-end px-6 md:px-12 lg:px-20">
                 <div className="w-full max-w-5xl flex justify-end">
                     <AnimatePresence mode="wait">
                         <motion.div

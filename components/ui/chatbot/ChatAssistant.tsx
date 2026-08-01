@@ -162,14 +162,14 @@ export function ChatAssistant() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setIsOpen(!isOpen)}
-                className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 ${isOpen
+                className={`w-11 h-11 rounded-full flex items-center justify-center shadow-xl transition-all duration-300 ${isOpen
                         ? "bg-foreground text-background"
                         : "bg-indigo-600 text-white hover:bg-indigo-700"
                     }`}
             >
-                {isOpen ? <X className="w-6 h-6" /> : <Bot className="w-7 h-7" />}
+                {isOpen ? <X className="w-5 h-5" /> : <Bot className="w-5 h-5" />}
                 {!isOpen && (
-                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 border-2 border-background rounded-full animate-bounce" />
+                    <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-red-500 border-2 border-background rounded-full animate-bounce" />
                 )}
             </motion.button>
         </div>

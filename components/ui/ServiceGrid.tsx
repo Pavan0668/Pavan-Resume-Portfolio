@@ -72,7 +72,7 @@ export default function ServiceGrid() {
         <>
             <section
                 id="capabilities-expertise"
-                className="home-snap-section min-h-[calc(100svh-4rem)] flex items-center py-16 md:py-20 relative z-10 bg-background transition-colors duration-300 scroll-mt-16"
+                className="home-snap-section min-h-[calc(100svh-4rem)] flex items-center py-12 md:py-16 relative z-10 bg-background transition-colors duration-300 scroll-mt-16"
             >
                 <div className="max-w-7xl mx-auto px-6 w-full">
                     <div className="text-center mb-6 md:mb-8">
@@ -111,10 +111,10 @@ export default function ServiceGrid() {
 
             <section
                 id="ai-frontier"
-                className="home-snap-section min-h-[calc(100svh-4rem)] flex items-center py-16 md:py-20 relative z-10 bg-background transition-colors duration-300 scroll-mt-16"
+                className="home-snap-section min-h-[calc(100svh-4rem)] flex items-center py-12 md:py-16 relative z-10 bg-background transition-colors duration-300 scroll-mt-16"
             >
                 <div className="max-w-7xl mx-auto px-6 w-full">
-                    <div className="text-center mb-6 md:mb-8">
+                    <div className="text-center mb-4 md:mb-6">
                         <motion.h2
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}

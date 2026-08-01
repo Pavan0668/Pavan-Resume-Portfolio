@@ -57,17 +57,6 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-html.home-scroll-snap,
-body.home-scroll-snap {
-  scroll-snap-type: y mandatory;
-  scroll-padding-top: 4rem;
-}
-
-html.home-scroll-snap .home-snap-section,
-body.home-scroll-snap .home-snap-section {
-  scroll-snap-align: start;
-}
-
 /* Glassmorphism utility */
 .glass {
   background: var(--glass-bg);

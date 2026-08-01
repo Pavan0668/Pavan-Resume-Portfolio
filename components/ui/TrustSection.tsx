@@ -5,30 +5,30 @@ import { useState } from "react";
 import { Handshake } from "lucide-react";
 
 const partners = [
-    { name: "Microsoft", icon: "microsoft" },
-    { name: "Google Cloud", icon: "googlecloud" },
-    { name: "Amazon Web Services", icon: "amazonwebservices" },
-    { name: "OpenAI", icon: "openai" },
-    { name: "Anthropic", icon: "anthropic" },
-    { name: "Cloudflare", icon: "cloudflare" },
-    { name: "Vercel", icon: "vercel" },
-    { name: "Stripe", icon: "stripe" },
+    { name: "Microsoft", icon: "/Inudstry Leaders/microsoft-logo.jpg" },
+    { name: "Google Cloud", icon: "/Inudstry Leaders/Google-Cloud-Logo.png" },
+    { name: "Amazon Web Services", icon: "/Inudstry Leaders/Amazon-Web-Services-AWS-Symbol.png" },
+    { name: "OpenAI", icon: "/Inudstry Leaders/OpenAI-Logo.png" },
+    { name: "Anthropic", icon: "/Inudstry Leaders/Anthropic.png" },
+    { name: "Cloudflare", icon: "/Inudstry Leaders/Cloudflare-Logo.wine.png" },
+    { name: "Vercel", icon: "/Inudstry Leaders/Vercel-Logo.jpg" },
+    { name: "Stripe", icon: "/Inudstry Leaders/Stripe-Symbol.png" },
 ];
 
 function PartnerLogo({ name, icon }: { name: string; icon: string }) {
     const [imgError, setImgError] = useState(false);
 
     return (
-        <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl overflow-hidden bg-white/10 flex items-center justify-center p-2.5 border border-white/5">
+        <div className="w-36 h-20 md:w-44 md:h-24 rounded-xl bg-white flex items-center justify-center p-4 border border-white/20 shadow-lg shadow-black/10">
             {!imgError ? (
                 <img
-                    src={`https://cdn.simpleicons.org/${icon}`}
+                    src={icon}
                     alt={name}
                     className="w-full h-full object-contain"
                     onError={() => setImgError(true)}
                 />
             ) : (
-                <span className="text-lg md:text-xl font-bold text-slate-400">
+                <span className="text-xl md:text-2xl font-bold text-slate-600">
                     {name.charAt(0)}
                 </span>
             )}
@@ -71,7 +71,7 @@ export default function TrustSection() {
                         ease: "linear",
                         duration: 25,
                     }}
-                    className="flex flex-nowrap gap-16 items-center w-[200%]"
+                    className="flex flex-nowrap gap-10 items-center w-[200%]"
                 >
                     {/* Double array to create seamless loop */}
                     {[...partners, ...partners].map((partner, index) => (
@@ -82,7 +82,7 @@ export default function TrustSection() {
                             {/* Partner Logo */}
                             <PartnerLogo name={partner.name} icon={partner.icon} />
                             {/* Partner Name */}
-                            <span className="text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-slate-400 to-slate-600 opacity-60 hover:opacity-100 transition-opacity whitespace-nowrap">
+                            <span className="text-sm md:text-base font-semibold text-slate-400 hover:text-slate-300 transition-colors whitespace-nowrap">
                                 {partner.name}
                             </span>
                         </div>
