@@ -4,6 +4,7 @@ import Footer from "@/components/ui/Footer";
 import HeroCarousel from "@/components/ui/company/HeroCarousel";
 import AboutUsSection from "@/components/ui/company/AboutUsSection";
 import AchievementsSection from "@/components/ui/company/AchievementsSection";
+import MissionVisionSection from "@/components/ui/company/MissionVisionSection";
 import PartnersSection from "@/components/ui/company/PartnersSection";
 import ScrollToHash from "@/components/ui/company/ScrollToHash";
 
@@ -34,6 +35,11 @@ export default function CompanyPage() {
             <div className="border-t border-foreground/10" />
 
             <PartnersSection />
+
+            {/* Divider line */}
+            <div className="border-t border-foreground/10" />
+
+            <MissionVisionSection />
 
             <Footer />
         </main>

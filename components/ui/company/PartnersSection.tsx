@@ -3,7 +3,13 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-const partners = [
+type Partner = {
+    name: string;
+    logo: string;
+    logoClassName?: string;
+};
+
+const partners: Partner[] = [
     { name: "Dell", logo: "/partners/dell.png" },
     { name: "QNAP", logo: "/partners/qnap.png" },
     { name: "eScan", logo: "/partners/escan.png" },
@@ -19,7 +25,12 @@ const partners = [
     { name: "Dahua", logo: "/partners/dahua.png" },
     { name: "Aruba Networks", logo: "/partners/aruba.png" },
     { name: "Cyberoam", logo: "/partners/cyberoam.png" },
-    { name: "CBC Group", logo: "/partners/cbc-group.png" },
+    {
+        name: "CBC Group",
+        logo: "/partners/cbc-group.png",
+        // CBC logo is light-gray; darken on light cards & lighten on dark cards for contrast
+        logoClassName: "brightness-[0.35] dark:brightness-150",
+    },
     { name: "Symantec", logo: "/partners/symantec.png" },
     { name: "Microsoft", logo: "/partners/microsoft.png" },
     { name: "Lenovo", logo: "/partners/lenovo.png" },
@@ -74,7 +85,7 @@ export default function PartnersSection() {
                                         alt={`${partner.name} logo`}
                                         width={120}
                                         height={60}
-                                        className="object-contain max-h-14 w-auto transition-transform duration-300"
+                                        className={`object-contain max-h-14 w-auto transition-transform duration-300 ${partner.logoClassName ?? ""}`}
                                         unoptimized
                                     />
                                 </div>

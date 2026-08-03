@@ -2,20 +2,21 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const slides = [
     {
-        image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1920&q=80&auto=format&fit=crop",
+        image: "/images/expertise/website-dev.jpg",
         title: "Engineering the Future of IT Infrastructure",
         subtitle: "Delivering robust, scalable technology solutions for enterprise-grade performance.",
     },
     {
-        image: "https://images.unsplash.com/photo-1581092919535-7146ff1c3c3d?w=1920&q=80&auto=format&fit=crop",
+        image: "/images/expertise/cloud.jpg",
         title: "30+ Years of Technology Leadership",
         subtitle: "Decades of proven expertise powering businesses across industries.",
     },
     {
-        image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1920&q=80&auto=format&fit=crop",
+        image: "/images/expertise/automation.jpg",
         title: "Empowering Businesses Through Innovation",
         subtitle: "Collaborative partnerships that drive digital transformation at scale.",
     },
@@ -51,13 +52,13 @@ export default function HeroCarousel() {
                     transition={{ duration: 0.8, ease: "easeInOut" }}
                     className="absolute inset-0"
                 >
-                    {/* Background Image */}
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                         src={slides[current].image}
                         alt={slides[current].title}
-                        className="w-full h-full object-cover"
-                        loading={current === 0 ? "eager" : "lazy"}
+                        fill
+                        sizes="100vw"
+                        priority={current === 0}
+                        className="object-cover"
                     />
 
                     {/* Dark overlay gradients — strong enough for white text readability */}
