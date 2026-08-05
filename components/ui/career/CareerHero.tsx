@@ -32,7 +32,7 @@ export function CareerHero() {
                             Future-ready careers at JK Computers
                         </div>
 
-                        <h1 className="mt-6 text-5xl font-black tracking-tight text-balance md:text-7xl">
+                        <h1 className="mt-6 text-[2.75rem] font-black tracking-tight text-balance leading-tight md:text-[4.25rem] lg:text-[5.75rem]">
                             Design the next decade of
                             <span className="block mt-2">
                                 <span className="gradient-text glow-text inline-block animate-text-reveal" style={{ animationDelay: "0.6s" }}>

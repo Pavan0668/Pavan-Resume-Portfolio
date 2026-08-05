@@ -107,7 +107,7 @@ function MagneticButton({ children, className = "" }: { children: React.ReactNod
 
 export function BlogHero() {
     const { displayText, isTyping } = useTypewriter(
-        ["Technology", "Innovation", "Intelligence"],
+        ["technology", "innovation", "intelligence"],
         40,
         600,
         1800
@@ -151,11 +151,11 @@ export function BlogHero() {
                         initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
                         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                         transition={{ duration: 0.8, delay: 0.3 }}
-                        className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-8 leading-tight"
+                        className="text-[2.75rem] md:text-[4.25rem] lg:text-[5.75rem] font-black tracking-tight mb-8 leading-tight"
                         style={{ perspective: "1000px" }}
                     >
                         <span className="block animate-text-reveal" style={{ animationDelay: "0.3s" }}>
-                            The Future of
+                            The future of
                         </span>
                         <span className="block mt-2">
                             <span className="gradient-text glow-text inline-block animate-text-reveal" style={{ animationDelay: "0.6s" }}>

@@ -26,7 +26,7 @@ export function ExpertiseHero() {
                     <span className="inline-block px-4 py-1.5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-sm font-bold tracking-wider uppercase mb-6">
                         Solutions & Services
                     </span>
-                    <h1 className="text-4xl md:text-6xl font-black text-foreground mb-8 tracking-tight">
+                    <h1 className="text-[2.75rem] md:text-[4.25rem] lg:text-[5.75rem] font-black text-foreground mb-8 tracking-tight leading-tight">
                         Our{" "}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-cyan-500">
                             {displayText}

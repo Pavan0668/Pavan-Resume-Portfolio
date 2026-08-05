@@ -107,9 +107,7 @@ export default function Navbar() {
 
                             <div className="relative flex h-11 items-center justify-between gap-4">
                                 <Link href="/" className="flex items-center gap-2.5 shrink-0">
-                                    <div className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-white/5 shadow-sm">
-                                        <img src="/logo.png" alt="JKC Solutions" className="h-full w-full object-contain" />
-                                    </div>
+                                    <img src="/logo.png" alt="JKC Solutions" className="h-9 w-auto" />
                                 </Link>
 
                                 <nav className="hidden flex-1 items-center justify-center gap-1 lg:flex">
