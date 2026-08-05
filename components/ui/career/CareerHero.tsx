@@ -3,8 +3,15 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, BrainCircuit, Sparkles, ShieldCheck, Workflow } from "lucide-react";
+import { useTypewriter } from "@/lib/use-typewriter";
 
 export function CareerHero() {
+    const { displayText, isTyping } = useTypewriter(
+        ["Intelligent IT", "Smart Technology", "Innovative Solutions"],
+        40,
+        600,
+        1800
+    );
     return (
         <section className="relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24">
             <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_top_left,_rgba(99,102,241,0.16),_transparent_36%),radial-gradient(circle_at_bottom_right,_rgba(34,211,238,0.14),_transparent_34%),linear-gradient(to_bottom,_transparent,_rgba(2,6,23,0.02))]" />
@@ -27,8 +34,11 @@ export function CareerHero() {
 
                         <h1 className="mt-6 text-5xl font-black tracking-tight text-balance md:text-7xl">
                             Design the next decade of
-                            <span className="block bg-gradient-to-r from-indigo-500 via-cyan-400 to-indigo-400 bg-clip-text text-transparent">
-                                intelligent IT
+                            <span className="block mt-2">
+                                <span className="gradient-text glow-text inline-block animate-text-reveal" style={{ animationDelay: "0.6s" }}>
+                                    {displayText}
+                                    {isTyping && <span className="animate-blink text-indigo-500 dark:text-cyan-400">|</span>}
+                                </span>
                             </span>
                         </h1>
 

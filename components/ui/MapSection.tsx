@@ -31,8 +31,8 @@ export default function MapSection() {
                     </h2>
 
                     <p className="text-foreground/60 max-w-2xl mx-auto text-base md:text-lg">
-                        545/B, Boulevard Towers by BramhaCorp, Sadhu Vaswani Chowk,
-                        opposite Vijay Sales, Camp, Pune, Maharashtra 411001
+                        B Wing 501, Victory Park Building, Chandavarkar Road,
+                        Borivali West, Mumbai 400092
                     </p>
                 </motion.div>
 
@@ -50,7 +50,7 @@ export default function MapSection() {
                             {/* Map iframe */}
                             <div className="relative w-full h-[400px] md:h-[500px] bg-foreground/5">
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.142!2d73.8567!3d18.5204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c0!2sCamp%2C+Pune!5e0!3m2!1sen!2sin!4v1"
+                                    src="https://www.google.com/maps?q=Victory+Park+Building+Chandavarkar+Road+Borivali+West+Mumbai+400092&output=embed"
                                     width="100%"
                                     height="100%"
                                     style={{ border: 0 }}
@@ -79,8 +79,8 @@ export default function MapSection() {
                                         <div>
                                             <h3 className="font-bold text-foreground mb-1">JKC Solutions</h3>
                                             <p className="text-xs text-foreground/60 leading-relaxed mb-3">
-                                                545/B, Boulevard Towers by BramhaCorp,<br />
-                                                Sadhu Vaswani Chowk, Camp, Pune
+                                                B Wing 501, Victory Park Building,<br />
+                                                Chandavarkar Road, Borivali West, Mumbai
                                             </p>
                                             <div className="flex items-center gap-2 text-xs text-foreground/50">
                                                 <Clock className="w-3 h-3" />
@@ -90,7 +90,7 @@ export default function MapSection() {
                                     </div>
 
                                     <a
-                                        href="https://maps.google.com/?q=Boulevard+Towers+Camp+Pune"
+                                        href="https://maps.google.com/?q=Victory+Park+Building+Chandavarkar+Road+Borivali+West+Mumbai+400092"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 dark:text-cyan-400 hover:text-indigo-700 dark:hover:text-cyan-300 transition-colors duration-300 group"

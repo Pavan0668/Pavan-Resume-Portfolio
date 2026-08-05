@@ -30,7 +30,7 @@ function AnimatedCounter({ end, suffix = "" }: { end: number, suffix?: string })
     return (
         <span
             ref={ref}
-            className="text-4xl md:text-5xl lg:text-6xl font-black tabular-nums tracking-tight text-white"
+            className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black tabular-nums tracking-tight text-white"
             style={{ fontFamily: "var(--font-orbitron), monospace" }}
         >
             {displayValue}{suffix}
@@ -80,7 +80,7 @@ export default function StatsSection() {
                         Delivering measurable results through innovation and dedication.
                     </motion.p>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6">
                     {stats.map((stat, index) => {
                         const Icon = stat.icon;
                         return (
@@ -94,9 +94,9 @@ export default function StatsSection() {
                             className="group relative"
                         >
                             <div className="absolute -inset-px rounded-[1.6rem] bg-gradient-to-br from-cyan-400/30 via-indigo-400/20 to-transparent opacity-50 blur-sm transition-opacity duration-300 group-hover:opacity-100" />
-                            <div className="relative h-full overflow-hidden rounded-[1.6rem] border border-white/10 bg-[linear-gradient(180deg,rgba(30,41,59,0.92)_0%,rgba(17,24,39,0.94)_100%)] p-6 md:p-8 shadow-[0_10px_30px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-300 group-hover:border-cyan-300/25">
+                            <div className="relative h-full overflow-hidden rounded-[1.6rem] border border-white/10 bg-[linear-gradient(180deg,rgba(30,41,59,0.92)_0%,rgba(17,24,39,0.94)_100%)] p-4 md:p-8 shadow-[0_10px_30px_rgba(0,0,0,0.25)] backdrop-blur-md transition-all duration-300 group-hover:border-cyan-300/25">
                                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.16),transparent_45%)] opacity-70" />
-                                <div className="relative flex h-full min-h-[190px] flex-col justify-between">
+                                <div className="relative flex h-full min-h-[150px] md:min-h-[190px] flex-col justify-between">
                                     <motion.div
                                         initial={{ opacity: 0, y: -8 }}
                                         whileInView={{ opacity: 1, y: 0 }}
@@ -110,10 +110,10 @@ export default function StatsSection() {
                                     </motion.div>
 
                                     <div className="pt-6">
-                                        <div className="mb-3">
+                                        <div className="mb-3 flex h-9 items-end justify-center sm:h-11 md:h-14 lg:h-[4.25rem]">
                                             <AnimatedCounter end={stat.value} />
                                         </div>
-                                        <p className="max-w-[14rem] text-sm font-semibold uppercase tracking-[0.24em] text-white/85">
+                                        <p className="mx-auto flex h-8 max-w-[14rem] items-start justify-center overflow-hidden text-center text-[10px] font-semibold uppercase leading-tight tracking-[0.2em] text-white/85 sm:text-xs line-clamp-2">
                                             {stat.label}
                                         </p>
                                     </div>

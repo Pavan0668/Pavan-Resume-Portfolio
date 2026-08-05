@@ -399,7 +399,7 @@ export default function ContactFormSection() {
                                 <ContactInfoItem
                                     icon={MapPin}
                                     title="Office Address"
-                                    value="545/B, Boulevard Towers by BramhaCorp, Sadhu Vaswani Chowk, opposite Vijay Sales, Camp, Pune, Maharashtra 411001"
+                                    value="B Wing 501, Victory Park Building, Chandavarkar Road, Borivali West, Mumbai 400092"
                                 />
                                 <ContactInfoItem
                                     icon={Mail}

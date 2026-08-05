@@ -1,8 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTypewriter } from "@/lib/use-typewriter";
 
 export function ExpertiseHero() {
+    const { displayText, isTyping } = useTypewriter(
+        ["Expertise", "Innovation", "Excellence"],
+        40,
+        600,
+        1800
+    );
     return (
         <section className="relative pt-32 pb-20 overflow-hidden">
             <div className="absolute inset-0 -z-10">
@@ -20,7 +27,11 @@ export function ExpertiseHero() {
                         Solutions & Services
                     </span>
                     <h1 className="text-4xl md:text-6xl font-black text-foreground mb-8 tracking-tight">
-                        Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-cyan-500">Expertise</span>
+                        Our{" "}
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-cyan-500">
+                            {displayText}
+                            {isTyping && <span className="animate-blink text-indigo-500 dark:text-cyan-400">|</span>}
+                        </span>
                     </h1>
                     <p className="max-w-3xl mx-auto text-xl text-foreground/70 leading-relaxed mb-10">
                         We provide comprehensive IT solutions tailored to your business needs.

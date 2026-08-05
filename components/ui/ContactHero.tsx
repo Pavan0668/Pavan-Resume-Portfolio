@@ -374,7 +374,7 @@ export default function ContactHero() {
                         <ContactInfoCard
                             icon={MapPin}
                             label="Address"
-                            value="Pune, Maharashtra"
+                            value="Borivali West, Mumbai"
                             delay={0.8}
                         />
                         <ContactInfoCard

@@ -86,28 +86,28 @@ export default function Navbar() {
         ? "border-white/10 bg-[#061022]/80 text-foreground shadow-[0_18px_50px_rgba(2,6,23,0.45)]"
         : "border-slate-200/80 bg-white/85 text-slate-900 shadow-[0_18px_50px_rgba(15,23,42,0.12)]";
     const dropdownPanelClass = isDarkTheme
-        ? "absolute top-full left-0 mt-3 w-64 rounded-2xl border border-white/10 bg-slate-900/95 p-2 shadow-2xl backdrop-blur-xl text-foreground"
-        : "absolute top-full left-0 mt-3 w-64 rounded-2xl border border-slate-200 bg-white/95 p-2 shadow-2xl backdrop-blur-xl text-slate-900";
+        ? "absolute top-full left-0 mt-2 w-64 rounded-2xl border border-white/10 bg-slate-900/95 p-2 shadow-2xl backdrop-blur-xl text-foreground"
+        : "absolute top-full left-0 mt-2 w-64 rounded-2xl border border-slate-200 bg-white/95 p-2 shadow-2xl backdrop-blur-xl text-slate-900";
     const dropdownItemClass = isDarkTheme
-        ? "flex items-center justify-between rounded-xl px-4 py-2.5 text-sm text-foreground/75 transition-colors hover:bg-white/10 hover:text-white group/link"
-        : "flex items-center justify-between rounded-xl px-4 py-2.5 text-sm text-slate-600 transition-colors hover:bg-slate-100 hover:text-indigo-600 group/link";
+        ? "flex items-center justify-between rounded-xl px-4 py-2 text-sm text-foreground/75 transition-colors hover:bg-white/10 hover:text-white group/link"
+        : "flex items-center justify-between rounded-xl px-4 py-2 text-sm text-slate-600 transition-colors hover:bg-slate-100 hover:text-indigo-600 group/link";
 
     return (
         <>
             <motion.header
                 initial={{ y: -100 }}
-                animate={{ y: isVisible ? 0 : -110 }}
+                animate={{ y: isVisible ? 0 : -90 }}
                 transition={{ duration: 0.28, ease: "easeOut" }}
-                className="fixed inset-x-0 top-0 z-50 px-4 pt-3 sm:px-6"
+                className="fixed inset-x-0 top-0 z-50 px-4 pt-2 sm:px-6"
             >
                 <div className="mx-auto max-w-7xl">
                     <div className="relative pointer-events-auto">
-                        <div className={`relative overflow-visible rounded-full border px-4 py-3 backdrop-blur-xl transition-all duration-300 sm:px-6 ${shellClass} ${scrolled ? "ring-1 ring-white/5" : ""}`}>
+                        <div className={`relative overflow-hidden rounded-full border px-4 py-2 backdrop-blur-xl transition-all duration-300 sm:px-6 ${shellClass} ${scrolled ? "ring-1 ring-white/5" : ""}`}>
                             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-white/10 via-transparent to-white/5 opacity-60" />
 
-                            <div className="relative flex h-14 items-center justify-between gap-4">
+                            <div className="relative flex h-11 items-center justify-between gap-4">
                                 <Link href="/" className="flex items-center gap-2.5 shrink-0">
-                                    <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-white/5 shadow-sm">
+                                    <div className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-white/5 shadow-sm">
                                         <img src="/logo.png" alt="JKC Solutions" className="h-full w-full object-contain" />
                                     </div>
                                 </Link>
@@ -121,7 +121,7 @@ export default function Navbar() {
                                             onMouseLeave={() => setActiveDropdown(null)}
                                         >
                                             {item.items ? (
-                                                <div className="flex items-center gap-0.5 rounded-full border border-transparent px-3 py-2 transition-all duration-200 hover:border-white/10 hover:bg-white/10">
+                                                <div className="flex items-center gap-0.5 rounded-full border border-transparent px-3 py-1.5 transition-all duration-200 hover:border-white/10 hover:bg-white/10">
                                                     <Link
                                                         href="/expertise"
                                                         className="whitespace-nowrap text-sm font-medium text-inherit/80 transition-colors hover:text-indigo-600 dark:hover:text-cyan-300"
@@ -139,7 +139,7 @@ export default function Navbar() {
                                             ) : (
                                                 <Link
                                                     href={item.href!}
-                                                    className="block rounded-full border border-transparent px-3 py-2 text-sm font-medium text-inherit/80 transition-all duration-200 hover:border-white/10 hover:bg-white/10 hover:text-indigo-600 dark:hover:text-cyan-300"
+                                                    className="block rounded-full border border-transparent px-3 py-1.5 text-sm font-medium text-inherit/80 transition-all duration-200 hover:border-white/10 hover:bg-white/10 hover:text-indigo-600 dark:hover:text-cyan-300"
                                                 >
                                                     {item.name}
                                                 </Link>
@@ -176,13 +176,13 @@ export default function Navbar() {
 
                                     <Link
                                         href="/contact"
-                                        className="hidden rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all hover:-translate-y-0.5 hover:bg-indigo-700 md:inline-flex"
+                                        className="hidden rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all hover:-translate-y-0.5 hover:bg-indigo-700 md:inline-flex"
                                     >
                                         Contact Us
                                     </Link>
 
                                     <button
-                                        className="lg:hidden flex h-10 w-10 items-center justify-center rounded-full border border-foreground/10 bg-white/10 text-foreground shadow-sm"
+                                        className="lg:hidden flex h-9 w-9 items-center justify-center rounded-full border border-foreground/10 bg-white/10 text-foreground shadow-sm"
                                         onClick={() => setIsOpen(!isOpen)}
                                         aria-label="Toggle menu"
                                     >
@@ -202,7 +202,7 @@ export default function Navbar() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.25 }}
-                        className="fixed inset-0 z-40 overflow-y-auto bg-background/90 px-4 pt-24 backdrop-blur-xl lg:hidden"
+                        className="fixed inset-0 z-40 overflow-y-auto bg-background/90 px-4 pt-20 backdrop-blur-xl lg:hidden"
                     >
                         <div className="mx-auto flex max-w-sm flex-col gap-2">
                             {navItems.map((item) => (
@@ -239,7 +239,7 @@ function MobileMenuItem({ item, onClick }: { item: NavItem; onClick: () => void 
             <Link
                 href={item.href!}
                 onClick={onClick}
-                className="block rounded-2xl border border-foreground/10 bg-background/80 px-5 py-4 text-lg font-semibold text-foreground transition-colors hover:border-indigo-500/30 hover:text-indigo-600 dark:hover:text-cyan-300"
+                className="block rounded-2xl border border-foreground/10 bg-background/80 px-5 py-3 text-lg font-semibold text-foreground transition-colors hover:border-indigo-500/30 hover:text-indigo-600 dark:hover:text-cyan-300"
             >
                 {item.name}
             </Link>
@@ -250,7 +250,7 @@ function MobileMenuItem({ item, onClick }: { item: NavItem; onClick: () => void 
         <div className="rounded-2xl border border-foreground/10 bg-background/80 px-5">
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex w-full items-center justify-between py-4 text-lg font-semibold text-foreground transition-colors hover:text-indigo-600 dark:hover:text-cyan-300"
+                className="flex w-full items-center justify-between py-3 text-lg font-semibold text-foreground transition-colors hover:text-indigo-600 dark:hover:text-cyan-300"
             >
                 {item.name}
                 <motion.div animate={{ rotate: isOpen ? 180 : 0 }}>

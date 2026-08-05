@@ -25,7 +25,7 @@ export default function Footer() {
                             We empower modern enterprises by combining rock-solid core IT infrastructure with the frontier of autonomous AI technologies.
                         </p>
                         <div className="flex flex-col gap-3 text-sm text-foreground/70">
-                            <div className="flex items-center gap-3"><MapPin className="w-4 h-4 text-indigo-500" /> 545/B, Boulevard Towers, Camp, Pune 411001</div>
+                            <div className="flex items-center gap-3"><MapPin className="w-4 h-4 text-indigo-500" /> B Wing 501, Victory Park Building, Chandavarkar Road, Borivali West, Mumbai 400092</div>
 <div className="flex items-center gap-3"><Phone className="w-4 h-4 text-indigo-500" /> +91 9324310387</div>
                             <div className="flex items-center gap-3"><Mail className="w-4 h-4 text-indigo-500" /> jkcsolutionspune@gmail.com</div>
                         </div>
