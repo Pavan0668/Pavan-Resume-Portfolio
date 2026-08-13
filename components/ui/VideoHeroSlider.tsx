@@ -6,18 +6,25 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 const videos = [
     {
-        url: "/videos/it-services-1.mp4",
+        url: "/videos/Engineers_maintaining-1%20(1).mp4",
         badge: "Enterprise IT Architecture",
         title: "Managed IT",
         highlight: "Excellence",
         description: "Proactive maintenance, round-the-clock support, and strategic IT planning designed for seamless, uninterrupted scaling."
     },
     {
-        url: "/videos/it-services-2.mp4",
+        url: "/videos/Engineers_maintaining-1%20(2).mp4",
         badge: "The Frontier of Automation",
         title: "AI-Driven",
         highlight: "Innovation",
         description: "Transform your operations with custom enterprise LLMs and completely autonomous agentic workflows."
+    },
+    {
+        url: "/videos/Enterprise_AI_software.mp4",
+        badge: "Next-Gen Digital Solutions",
+        title: "Future-Ready",
+        highlight: "Technology",
+        description: "Cutting-edge infrastructure and intelligent digital solutions engineered to accelerate your business into tomorrow."
     }
 ];
 
@@ -39,6 +46,9 @@ export default function VideoHeroSlider() {
     return (
         <section
             id="home-hero"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Featured services showcase"
             className="relative w-full overflow-hidden bg-black"
             style={{ minHeight: "calc(100svh - 64px)", paddingTop: "64px" }}
         >
@@ -77,7 +87,8 @@ export default function VideoHeroSlider() {
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -20 }}
                             transition={{ duration: 0.8, ease: "easeOut" }}
-                            className="flex flex-col items-start max-w-xl w-full"
+                            className="flex flex-col items-end max-w-xl w-full text-right"
+                            aria-live="polite"
                         >
                             {/* Dynamic Badge */}
                             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-500/10 px-5 py-2 text-sm font-semibold tracking-wide text-indigo-300 backdrop-blur-md">
@@ -93,7 +104,7 @@ export default function VideoHeroSlider() {
                             </h1>
 
                             {/* Dynamic Description */}
-                            <p className="mb-8 max-w-lg text-base md:text-lg font-medium text-slate-200 leading-relaxed">
+                            <p className="mb-8 max-w-lg text-base md:text-lg font-medium text-slate-200 leading-relaxed text-right">
                                 {currentSlide.description}
                             </p>
 
@@ -120,24 +131,29 @@ export default function VideoHeroSlider() {
                 <div className="flex gap-3">
                     <button
                         onClick={prevSlide}
-                        className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-black/20 text-white backdrop-blur-md transition-all hover:bg-white/10 hover:border-white/30 active:scale-95"
+                        aria-label="Previous slide"
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-black/20 text-white backdrop-blur-md transition-all hover:bg-white/10 hover:border-white/30 hover:scale-105 active:scale-95"
                     >
                         <ChevronLeft className="h-4 w-4" />
                     </button>
                     <button
                         onClick={nextSlide}
-                        className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-black/20 text-white backdrop-blur-md transition-all hover:bg-white/10 hover:border-white/30 active:scale-95"
+                        aria-label="Next slide"
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-black/20 text-white backdrop-blur-md transition-all hover:bg-white/10 hover:border-white/30 hover:scale-105 active:scale-95"
                     >
                         <ChevronRight className="h-4 w-4" />
                     </button>
                 </div>
 
                 {/* Progress Indicators */}
-                <div className="flex gap-3 bg-black/20 backdrop-blur-sm px-4 py-2.5 rounded-full border border-white/5">
+                <div className="flex gap-3 bg-black/20 backdrop-blur-sm px-4 py-2.5 rounded-full border border-white/5" role="tablist" aria-label="Slide navigation">
                     {videos.map((_, index) => (
                         <button
                             key={index}
                             onClick={() => setCurrentIndex(index)}
+                            aria-label={`Go to slide ${index + 1}`}
+                            aria-selected={index === currentIndex}
+                            role="tab"
                             className={`h-1.5 rounded-full transition-all duration-500 ease-out ${index === currentIndex ? "w-10 bg-indigo-400 shadow-[0_0_10px_rgba(129,140,248,0.5)]" : "w-2 bg-white/30 hover:bg-white/50"
                                 }`}
                         />

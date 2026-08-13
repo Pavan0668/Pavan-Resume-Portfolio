@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Handshake } from "lucide-react";
 
 const partners = [
     { name: "Microsoft", icon: "/Inudstry Leaders/microsoft-logo.jpg" },

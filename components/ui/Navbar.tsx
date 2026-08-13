@@ -122,12 +122,12 @@ export default function Navbar() {
                                                 <div className="flex items-center gap-0.5 rounded-full border border-transparent px-3 py-1.5 transition-all duration-200 hover:border-white/10 hover:bg-white/10">
                                                     <Link
                                                         href="/expertise"
-                                                        className="whitespace-nowrap text-sm font-medium text-inherit/80 transition-colors hover:text-indigo-600 dark:hover:text-cyan-300"
+                                                        className="whitespace-nowrap text-sm font-medium text-foreground/80 transition-colors hover:text-indigo-600 dark:hover:text-cyan-300"
                                                     >
                                                         {item.name}
                                                     </Link>
                                                     <button
-                                                        className="text-inherit/70 transition-colors hover:text-indigo-600 dark:hover:text-cyan-300"
+                                                        className="text-foreground/70 transition-colors hover:text-indigo-600 dark:hover:text-cyan-300"
                                                         onClick={() => setActiveDropdown(activeDropdown === item.name ? null : item.name)}
                                                         aria-label={`Toggle ${item.name} menu`}
                                                     >
@@ -137,7 +137,7 @@ export default function Navbar() {
                                             ) : (
                                                 <Link
                                                     href={item.href!}
-                                                    className="block rounded-full border border-transparent px-3 py-1.5 text-sm font-medium text-inherit/80 transition-all duration-200 hover:border-white/10 hover:bg-white/10 hover:text-indigo-600 dark:hover:text-cyan-300"
+                                                    className="block rounded-full border border-transparent px-3 py-1.5 text-sm font-medium text-foreground/80 transition-all duration-200 hover:border-white/10 hover:bg-white/10 hover:text-indigo-600 dark:hover:text-cyan-300"
                                                 >
                                                     {item.name}
                                                 </Link>
@@ -180,9 +180,10 @@ export default function Navbar() {
                                     </Link>
 
                                     <button
-                                        className="lg:hidden flex h-9 w-9 items-center justify-center rounded-full border border-foreground/10 bg-white/10 text-foreground shadow-sm"
+                                        className="lg:hidden flex h-9 w-9 items-center justify-center rounded-full border border-foreground/10 bg-white/10 text-foreground shadow-sm transition-all hover:bg-white/20 active:scale-95"
                                         onClick={() => setIsOpen(!isOpen)}
-                                        aria-label="Toggle menu"
+                                        aria-label={isOpen ? "Close menu" : "Open menu"}
+                                        aria-expanded={isOpen}
                                     >
                                         {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
                                     </button>

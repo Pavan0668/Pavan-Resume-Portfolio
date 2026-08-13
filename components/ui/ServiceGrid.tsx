@@ -4,19 +4,19 @@ import { motion } from "framer-motion";
 
 const coreServices = [
     {
-        icon: "/images/blog/managed-it.png",
+        icon: "/images/blog/Core%20IT%20Excellence/Managed%20IT%20Services.avif",
         title: "Managed IT Services",
         description: "Proactive maintenance, 24/7 helpdesk, and strategic IT planning to keep your business running seamlessly.",
         glow: "rgba(99, 102, 241, 0.2)"
     },
     {
-        icon: "/images/blog/cloud-solutions.png",
+        icon: "/images/blog/Core%20IT%20Excellence/Cloud%20Infrastructure.jpg",
         title: "Cloud Infrastructure",
         description: "Scalable, resilient cloud hosting and migration spanning AWS, Azure, and Google Cloud.",
         glow: "rgba(14, 165, 233, 0.2)"
     },
     {
-        icon: "/images/expertise/security.jpg",
+        icon: "/images/blog/Core%20IT%20Excellence/Security%20%26%20Surveillance.jpg",
         title: "Security & Surveillance",
         description: "Advanced cybersecurity protocols and physical surveillance systems protecting your critical assets.",
         glow: "rgba(16, 185, 129, 0.2)"
@@ -25,7 +25,7 @@ const coreServices = [
 
 const aiServices = [
     {
-        icon: "/images/blog/generative-ai.png",
+        icon: "/images/blog/Core%20IT%20Excellence/Generative%20AI%20(LLMs).jpg",
         title: "Generative AI (LLMs)",
         description: "Custom fine-tuning of large language models on your secure, proprietary enterprise data.",
         points: [
@@ -36,7 +36,7 @@ const aiServices = [
         glow: "rgba(217, 70, 239, 0.2)"
     },
     {
-        icon: "/images/blog/agentic-ai.png",
+        icon: "/images/blog/Core%20IT%20Excellence/Agentic%20AI%20Workflows.jpg",
         title: "Agentic AI Workflows",
         description: "Autonomous reasoning systems capable of executing complex multi-step operational tasks.",
         points: [
@@ -47,7 +47,7 @@ const aiServices = [
         glow: "rgba(168, 85, 247, 0.2)"
     },
     {
-        icon: "/images/blog/ai-agent-dev.png",
+        icon: "/images/blog/Core%20IT%20Excellence/Autonomous%20Agent%20Development.jpg",
         title: "Autonomous Agent Development",
         description: "Bespoke digital assistants providing 24/7 intelligent customer support and internal HR solutions.",
         points: [
@@ -95,10 +95,10 @@ export default function ServiceGrid() {
                         </motion.p>
                     </div>
 
-                    <div className="mb-0">
+                    <div>
                         <div className="flex items-center gap-3 mb-4">
                             <h3 className="text-lg md:text-xl font-bold text-foreground">Core IT Excellence</h3>
-                            <div className="h-px flex-1 bg-gradient-to-r from-foreground/10 to-transparent"></div>
+                            <div className="h-px flex-1 bg-gradient-to-r from-foreground/10 to-transparent" />
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
                             {coreServices.map((service, index) => (
@@ -159,7 +159,7 @@ function ServiceCard({ service, index }: { service: ServiceItem; index: number }
                 boxShadow: `0 10px 40px ${service.glow}`,
                 borderColor: 'var(--card-border-hover)'
             }}
-            className="glass-card rounded-2xl p-6 md:p-8 transition-all duration-300 relative group overflow-hidden bg-card-bg"
+            className="glass-card rounded-2xl p-6 md:p-8 transition-all duration-300 relative group overflow-hidden bg-card-bg will-change-transform"
         >
             <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"
@@ -180,7 +180,7 @@ function ServiceCard({ service, index }: { service: ServiceItem; index: number }
             {service.points && (
                 <ul className="space-y-1.5 md:space-y-2 relative z-10">
                     {service.points.map((point, i) => (
-                        <li key={i} className="flex items-start gap-2 text-xs md:text-sm text-foreground/60">
+                        <li key={i} className="flex items-start gap-2 text-xs md:text-sm text-foreground/60 leading-normal">
                             <span className="mt-1 h-1.5 w-1.5 rounded-full bg-gradient-to-r from-indigo-400 to-cyan-400 shrink-0" />
                             {point}
                         </li>

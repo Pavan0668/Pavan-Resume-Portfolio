@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Twitter, Linkedin, Github, Facebook, Instagram, Phone, Mail, MapPin } from "lucide-react";
+import { Twitter, Linkedin, Facebook, Instagram, Phone, Mail, MapPin } from "lucide-react";
 
 export default function Footer() {
     return (
@@ -25,9 +25,9 @@ export default function Footer() {
                             We empower modern enterprises by combining rock-solid core IT infrastructure with the frontier of autonomous AI technologies.
                         </p>
                         <div className="flex flex-col gap-3 text-sm text-foreground/70">
-                            <div className="flex items-center gap-3"><MapPin className="w-4 h-4 text-indigo-500" /> B Wing 501, Victory Park Building, Chandavarkar Road, Borivali West, Mumbai 400092</div>
-<div className="flex items-center gap-3"><Phone className="w-4 h-4 text-indigo-500" /> +91 9324310387</div>
-                            <div className="flex items-center gap-3"><Mail className="w-4 h-4 text-indigo-500" /> jkcsolutionspune@gmail.com</div>
+                            <div className="flex items-start gap-3"><MapPin className="w-4 h-4 text-indigo-500 mt-0.5 shrink-0" /> <span>B Wing 501, Victory Park Building, Chandavarkar Road, Borivali West, Mumbai 400092</span></div>
+                            <div className="flex items-center gap-3"><Phone className="w-4 h-4 text-indigo-500 shrink-0" /> <a href="tel:+919324310387" className="hover:text-indigo-600 dark:hover:text-cyan-400 transition-colors">+91 9324310387</a></div>
+                            <div className="flex items-center gap-3"><Mail className="w-4 h-4 text-indigo-500 shrink-0" /> <a href="mailto:jkcsolutionspune@gmail.com" className="hover:text-indigo-600 dark:hover:text-cyan-400 transition-colors">jkcsolutionspune@gmail.com</a></div>
                         </div>
                     </div>
 
@@ -89,19 +89,19 @@ export default function Footer() {
                     <p>© {new Date().getFullYear()} JK Computers. All rights reserved.</p>
 
                     <div className="flex items-center gap-3">
-                        <a href="#" className="w-10 h-10 rounded-full bg-foreground/5 flex items-center justify-center text-foreground/70 hover:text-indigo-600 dark:hover:text-cyan-400 hover:bg-foreground/10 transition-all border border-border">
+                        <a href="#" aria-label="Facebook" className="w-10 h-10 rounded-full bg-foreground/5 flex items-center justify-center text-foreground/70 hover:text-indigo-600 dark:hover:text-cyan-400 hover:bg-foreground/10 hover:scale-110 transition-all border border-border">
                             <Facebook className="w-4 h-4" />
                         </a>
-                        <a href="#" className="w-10 h-10 rounded-full bg-foreground/5 flex items-center justify-center text-foreground/70 hover:text-indigo-600 dark:hover:text-cyan-400 hover:bg-foreground/10 transition-all border border-border">
+                        <a href="#" aria-label="Twitter" className="w-10 h-10 rounded-full bg-foreground/5 flex items-center justify-center text-foreground/70 hover:text-indigo-600 dark:hover:text-cyan-400 hover:bg-foreground/10 hover:scale-110 transition-all border border-border">
                             <Twitter className="w-4 h-4" />
                         </a>
-                        <a href="#" className="w-10 h-10 rounded-full bg-foreground/5 flex items-center justify-center text-foreground/70 hover:text-indigo-600 dark:hover:text-cyan-400 hover:bg-foreground/10 transition-all border border-border">
+                        <a href="#" aria-label="LinkedIn" className="w-10 h-10 rounded-full bg-foreground/5 flex items-center justify-center text-foreground/70 hover:text-indigo-600 dark:hover:text-cyan-400 hover:bg-foreground/10 hover:scale-110 transition-all border border-border">
                             <Linkedin className="w-4 h-4" />
                         </a>
-                        <a href="#" className="w-10 h-10 rounded-full bg-foreground/5 flex items-center justify-center text-foreground/70 hover:text-indigo-600 dark:hover:text-cyan-400 hover:bg-foreground/10 transition-all border border-border">
+                        <a href="#" aria-label="Instagram" className="w-10 h-10 rounded-full bg-foreground/5 flex items-center justify-center text-foreground/70 hover:text-indigo-600 dark:hover:text-cyan-400 hover:bg-foreground/10 hover:scale-110 transition-all border border-border">
                             <Instagram className="w-4 h-4" />
                         </a>
-                        <a href="#" className="w-10 h-10 rounded-full bg-foreground/5 flex items-center justify-center text-foreground/70 hover:text-indigo-600 dark:hover:text-cyan-400 hover:bg-foreground/10 transition-all border border-border">
+                        <a href="#" aria-label="WhatsApp" className="w-10 h-10 rounded-full bg-foreground/5 flex items-center justify-center text-foreground/70 hover:text-indigo-600 dark:hover:text-cyan-400 hover:bg-foreground/10 hover:scale-110 transition-all border border-border">
                             <span className="font-bold text-lg leading-none shrink-0 mb-1">WA</span> {/* Simple fallback for WhatsApp icon */}
                         </a>
                     </div>

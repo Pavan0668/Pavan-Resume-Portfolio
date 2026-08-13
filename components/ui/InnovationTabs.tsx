@@ -76,13 +76,17 @@ export default function InnovationTabs() {
                     <div className="relative grid md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.45fr)] items-stretch">
                         {/* Left side: labels */}
                         <div className="border-b border-white/10 md:border-b-0 md:border-r md:border-white/10 bg-white/[0.015] p-4 md:p-5 lg:p-6">
-                            <div className="flex flex-col gap-3">
+                            <div className="flex flex-col gap-3" role="tablist" aria-label="Innovation categories">
                                 {tabs.map((tab, index) => {
                                     const isActive = activeTab === tab.id;
                                     return (
                                         <motion.button
                                             key={tab.id}
                                             onClick={() => setActiveTab(tab.id)}
+                                            role="tab"
+                                            aria-selected={isActive}
+                                            aria-controls={`tab-panel-${tab.id}`}
+                                            id={`tab-${tab.id}`}
                                             whileTap={{ scale: 0.99 }}
                                             initial={false}
                                             animate={{
@@ -152,6 +156,9 @@ export default function InnovationTabs() {
                                         activeTab === tab.id && (
                                             <motion.div
                                                 key={tab.id}
+                                                id={`tab-panel-${tab.id}`}
+                                                role="tabpanel"
+                                                aria-labelledby={`tab-${tab.id}`}
                                                 initial={{ opacity: 0, x: 18 }}
                                                 animate={{ opacity: 1, x: 0 }}
                                                 exit={{ opacity: 0, x: -18 }}
