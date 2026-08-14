@@ -102,7 +102,7 @@ export default function Navbar() {
             >
                 <div className="mx-auto max-w-7xl">
                     <div className="relative pointer-events-auto">
-                        <div className={`relative overflow-hidden rounded-full border px-4 py-2 backdrop-blur-xl transition-all duration-300 sm:px-6 ${shellClass} ${scrolled ? "ring-1 ring-white/5" : ""}`}>
+                        <div className={`relative rounded-full border px-4 py-2 backdrop-blur-xl transition-all duration-300 sm:px-6 ${shellClass} ${scrolled ? "ring-1 ring-white/5" : ""}`}>
                             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-white/10 via-transparent to-white/5 opacity-60" />
 
                             <div className="relative flex h-11 items-center justify-between gap-4">
