@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { createSmtpTransporter, getSmtpConfig, getSmtpConfigError } from "@/lib/mailer";
 
 export const runtime = "nodejs";
 
@@ -24,19 +24,25 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Configure SMTP transporter
-        const transporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST || "smtp.gmail.com",
-            port: parseInt(process.env.SMTP_PORT || "587", 10),
-            secure: false, // true for 465, false for other ports
-            auth: {
-                user: process.env.SMTP_USER,
-                pass: process.env.SMTP_PASSWORD,
-            },
-        });
+        // Configure SMTP transporter using shared mailer utility
+        const smtpConfig = getSmtpConfig();
+        if (!smtpConfig) {
+            return NextResponse.json(
+                { error: getSmtpConfigError() },
+                { status: 500 }
+            );
+        }
 
-        const mailTo = process.env.MAIL_TO || process.env.SMTP_USER;
-        const fromEmail = process.env.SMTP_USER || "jkcsolutions1@gmail.com";
+        const transporter = createSmtpTransporter();
+        if (!transporter) {
+            return NextResponse.json(
+                { error: getSmtpConfigError() },
+                { status: 500 }
+            );
+        }
+
+        const mailTo = smtpConfig.mailTo;
+        const fromEmail = smtpConfig.fromEmail;
 
         // Send notification email to the company
         await transporter.sendMail({
