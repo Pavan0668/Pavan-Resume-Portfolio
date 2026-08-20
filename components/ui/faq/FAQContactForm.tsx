@@ -324,7 +324,7 @@ export function FAQContactForm() {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!validateForm()) {
@@ -335,8 +335,21 @@ export function FAQContactForm() {
 
         setStatus("loading");
 
-        // Simulate API call
-        setTimeout(() => {
+        try {
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || "Failed to send message");
+            }
+
             setStatus("success");
             setFormData(initialFormData);
 
@@ -344,7 +357,15 @@ export function FAQContactForm() {
             setTimeout(() => {
                 setStatus("idle");
             }, 5000);
-        }, 2000);
+        } catch (error) {
+            console.error("Contact form error:", error);
+            setStatus("error");
+
+            // Reset after error
+            setTimeout(() => {
+                setStatus("idle");
+            }, 4000);
+        }
     };
 
     const updateField = (field: keyof FormData) => (value: string) => {

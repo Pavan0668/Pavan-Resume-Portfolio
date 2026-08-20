@@ -72,9 +72,9 @@ function useTypewriter(words: string[], speed = 30, startDelay = 500, pauseBetwe
     return { displayText, isTyping };
 }
 
-// Magnetic button component
+// Magnetic button wrapper (renders a div to avoid nested buttons)
 function MagneticButton({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-    const ref = useRef<HTMLButtonElement>(null);
+    const ref = useRef<HTMLDivElement>(null);
 
     const handleMouseMove = (e: React.MouseEvent) => {
         const button = ref.current;
@@ -92,19 +92,19 @@ function MagneticButton({ children, className = "" }: { children: React.ReactNod
     };
 
     return (
-        <button
+        <div
             ref={ref}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             className={`transition-transform duration-300 ease-out ${className}`}
         >
             {children}
-        </button>
+        </div>
     );
 }
 
 // Ripple effect button
-function RippleButton({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+function RippleButton({ children, className = "", onClick }: { children: React.ReactNode; className?: string; onClick?: () => void }) {
     const [ripples, setRipples] = useState<{ x: number; y: number; id: number }[]>([]);
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -116,6 +116,9 @@ function RippleButton({ children, className = "" }: { children: React.ReactNode;
         setTimeout(() => {
             setRipples((prev) => prev.filter((r) => r.id !== id));
         }, 600);
+
+        // Call external onClick handler if provided
+        onClick?.();
     };
 
     return (
@@ -287,6 +290,10 @@ export default function ContactHero() {
         document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
     };
 
+    const handleScheduleCall = () => {
+        window.location.href = "tel:+919324310387";
+    };
+
     return (
         <section ref={sectionRef} className="relative pt-32 pb-20 overflow-hidden min-h-[90vh] flex items-center">
             {/* Animated background with parallax only */}
@@ -353,7 +360,7 @@ export default function ContactHero() {
                         <MagneticButton
                             className="group relative h-14 px-10 rounded-full bg-gradient-to-r from-indigo-600 to-cyan-500 text-white font-bold shadow-xl shadow-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/40 transition-all duration-300"
                         >
-                            <RippleButton className="w-full h-full flex items-center gap-3">
+                            <RippleButton className="w-full h-full flex items-center gap-3" onClick={scrollToForm}>
                                 <Zap className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
                                 Start Your Project
                             </RippleButton>
@@ -362,7 +369,7 @@ export default function ContactHero() {
                         <MagneticButton
                             className="group h-14 px-10 rounded-full bg-background border border-foreground/10 hover:border-indigo-500/30 text-foreground font-bold flex items-center gap-3 transition-all duration-300 hover:shadow-lg"
                         >
-                            <RippleButton className="w-full h-full flex items-center gap-3">
+                            <RippleButton className="w-full h-full flex items-center gap-3" onClick={handleScheduleCall}>
                                 <MessageSquare className="w-5 h-5 text-indigo-500 dark:text-cyan-400 group-hover:scale-110 transition-transform duration-300" />
                                 Schedule a Call
                             </RippleButton>

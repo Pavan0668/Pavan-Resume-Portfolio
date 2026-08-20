@@ -25,7 +25,7 @@ const socialPlatforms: SocialPlatform[] = [
     {
         name: "Facebook",
         icon: Facebook,
-        href: "https://facebook.com",
+        href: "https://www.facebook.com/profile.php?id=61554599484930",
         hoverColor:
             "hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] hover:shadow-[0_10px_30px_rgba(24,119,242,0.3)]",
         description: "Follow our latest updates and company news",
@@ -34,7 +34,7 @@ const socialPlatforms: SocialPlatform[] = [
     {
         name: "LinkedIn",
         icon: Linkedin,
-        href: "https://linkedin.com",
+        href: "https://www.linkedin.com/company/jkc-solutions-ltd/?viewAsMember=true",
         hoverColor:
             "hover:bg-[#0A66C2] hover:text-white hover:border-[#0A66C2] hover:shadow-[0_10px_30px_rgba(10,102,194,0.3)]",
         description: "Connect with our team and industry insights",
@@ -43,7 +43,7 @@ const socialPlatforms: SocialPlatform[] = [
     {
         name: "Twitter / X",
         icon: Twitter,
-        href: "https://twitter.com",
+        href: "https://x.com/jkcsolution",
         hoverColor:
             "hover:bg-black hover:text-white hover:border-black hover:shadow-[0_10px_30px_rgba(0,0,0,0.3)] dark:hover:bg-white dark:hover:text-black dark:hover:border-white",
         description: "Real-time tech news and announcements",
@@ -52,7 +52,7 @@ const socialPlatforms: SocialPlatform[] = [
     {
         name: "Instagram",
         icon: Instagram,
-        href: "https://instagram.com",
+        href: "https://www.instagram.com/jkcsolutionsmumbai/",
         hoverColor:
             "hover:bg-[#E4405F] hover:text-white hover:border-[#E4405F] hover:shadow-[0_10px_30px_rgba(228,64,95,0.3)]",
         description: "Behind the scenes and team culture",
@@ -61,7 +61,7 @@ const socialPlatforms: SocialPlatform[] = [
     {
         name: "WhatsApp",
         icon: MessageCircle,
-        href: "https://wa.me/919324310387",
+        href: "https://wa.me/918668262359",
         hoverColor:
             "hover:bg-[#25D366] hover:text-white hover:border-[#25D366] hover:shadow-[0_10px_30px_rgba(37,211,102,0.3)]",
         description: "Chat with us instantly for quick support",

@@ -2,24 +2,73 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, CheckCircle2 } from "lucide-react";
+import { Send, CheckCircle2, Loader2, AlertCircle } from "lucide-react";
+
+type ConsultationStatus = "idle" | "loading" | "success" | "error";
 
 export default function CTASection() {
-    const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+    const [email, setEmail] = useState("");
+    const [status, setStatus] = useState<ConsultationStatus>("idle");
+    const [errorMsg, setErrorMsg] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setStatus("loading");
 
-        // Simulate API call and loading skeleton state
-        setTimeout(() => {
+        // Validate email
+        if (!email.trim()) {
+            setErrorMsg("Please enter your work email");
+            setStatus("error");
+            setTimeout(() => setStatus("idle"), 3000);
+            return;
+        }
+
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(email)) {
+            setErrorMsg("Please enter a valid work email address");
+            setStatus("error");
+            setTimeout(() => setStatus("idle"), 3000);
+            return;
+        }
+
+        setStatus("loading");
+        setErrorMsg("");
+
+        try {
+            const response = await fetch("/api/consultation", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || "Failed to send consultation request");
+            }
+
             setStatus("success");
+            setEmail("");
 
             // Reset after success
             setTimeout(() => {
                 setStatus("idle");
+            }, 5000);
+        } catch (error) {
+            console.error("Consultation request error:", error);
+            setErrorMsg(
+                error instanceof Error
+                    ? error.message
+                    : "Something went wrong. Please try again."
+            );
+            setStatus("error");
+
+            // Reset after error
+            setTimeout(() => {
+                setStatus("idle");
             }, 4000);
-        }, 2000);
+        }
     };
 
     return (
@@ -81,6 +130,8 @@ export default function CTASection() {
                                             >
                                                 <input
                                                     type="email"
+                                                    value={email}
+                                                    onChange={(e) => setEmail(e.target.value)}
                                                     placeholder="Enter your work email"
                                                     className="w-full h-12 md:h-14 rounded-xl bg-background/50 backdrop-blur-sm px-6 text-foreground placeholder:text-foreground/50 outline-none border border-border focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all shadow-inner relative z-10 text-sm md:text-base"
                                                     required
@@ -104,9 +155,8 @@ export default function CTASection() {
                                             >
                                                 <div className="w-full h-12 md:h-14 rounded-xl bg-foreground/5 animate-pulse" />
                                                 <div className="w-full h-12 md:h-14 rounded-xl bg-indigo-500/20 animate-pulse border border-indigo-500/30 flex items-center justify-center gap-3">
-                                                    <div className="h-2 w-2 bg-indigo-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                                                    <div className="h-2 w-2 bg-indigo-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                                                    <div className="h-2 w-2 bg-indigo-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                                                    <Loader2 className="w-5 h-5 text-indigo-500 animate-spin" />
+                                                    <span className="text-sm font-semibold text-indigo-600 dark:text-cyan-400">Sending Request...</span>
                                                 </div>
                                             </motion.div>
                                         )}
@@ -118,8 +168,23 @@ export default function CTASection() {
                                                 animate={{ opacity: 1, scale: 1 }}
                                                 className="w-full h-28 md:h-32 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex flex-col items-center justify-center gap-3 text-emerald-600 dark:text-emerald-400"
                                             >
-                                                <CheckCircle2 className="w-8 h-8 md:w-10 md:h-10" />
+                                                <CheckCircle2 className="w-8 h-8 md:w-10 md:h-10 animate-check-pop" />
                                                 <span className="font-semibold text-base md:text-lg">Request Sent Successfully!</span>
+                                                <span className="text-xs md:text-sm text-emerald-600/70 dark:text-emerald-400/70">Check your inbox for confirmation.</span>
+                                            </motion.div>
+                                        )}
+
+                                        {status === "error" && (
+                                            <motion.div
+                                                key="error"
+                                                initial={{ opacity: 0, scale: 0.9 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                className="w-full h-28 md:h-32 rounded-xl bg-red-500/10 border border-red-500/30 flex flex-col items-center justify-center gap-3 text-red-600 dark:text-red-400 animate-shake"
+                                            >
+                                                <AlertCircle className="w-8 h-8 md:w-10 md:h-10" />
+                                                <span className="font-semibold text-base md:text-lg">
+                                                    {errorMsg || "Failed to send request. Please try again."}
+                                                </span>
                                             </motion.div>
                                         )}
                                     </AnimatePresence>

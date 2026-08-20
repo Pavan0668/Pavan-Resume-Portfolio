@@ -24,14 +24,72 @@ interface ApplyModalProps {
 export function ApplyModal({ isOpen, onClose, jobTitle }: ApplyModalProps) {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [fileName, setFileName] = useState("");
+    const [formData, setFormData] = useState({
+        name: "",
+        phone: "",
+        email: "",
+        message: "",
+    });
+    const [errors, setErrors] = useState<{
+        name?: string;
+        phone?: string;
+        email?: string;
+        message?: string;
+    }>({});
+
+    const validateForm = (): boolean => {
+        const newErrors: {
+            name?: string;
+            phone?: string;
+            email?: string;
+            message?: string;
+        } = {};
+
+        if (!formData.name.trim()) {
+            newErrors.name = "Name is required";
+        } else if (formData.name.trim().length < 2) {
+            newErrors.name = "Name must be at least 2 characters";
+        }
+
+        if (!formData.phone.trim()) {
+            newErrors.phone = "Mobile number is required";
+        } else if (!/^\d{10}$/.test(formData.phone)) {
+            newErrors.phone = "Mobile number must be exactly 10 digits (numbers only)";
+        }
+
+        if (!formData.email.trim()) {
+            newErrors.email = "Email is required";
+        } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) {
+            newErrors.email = "Please enter a valid email address (e.g. name@example.com)";
+        }
+
+        if (!formData.message.trim()) {
+            newErrors.message = "Please add a short note about your experience";
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!validateForm()) {
+            return;
+        }
+
         setIsSubmitted(true);
         setTimeout(() => {
             setIsSubmitted(false);
             onClose();
         }, 3000);
+    };
+
+    const updateField = (field: "name" | "phone" | "email" | "message") => (value: string) => {
+        setFormData((prev) => ({ ...prev, [field]: value }));
+        if (errors[field]) {
+            setErrors((prev) => ({ ...prev, [field]: undefined }));
+        }
     };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,8 +193,17 @@ export function ApplyModal({ isOpen, onClose, jobTitle }: ApplyModalProps) {
                                                     required
                                                     type="text"
                                                     placeholder="Full name"
-                                                    className="h-12 w-full rounded-2xl border border-foreground/10 bg-foreground/5 pl-12 pr-4 text-foreground outline-none transition-all placeholder:text-foreground/35 focus:border-indigo-500 focus:bg-background focus:ring-1 focus:ring-indigo-500/30"
+                                                    value={formData.name}
+                                                    onChange={(e) => updateField("name")(e.target.value)}
+                                                    className={`h-12 w-full rounded-2xl border bg-foreground/5 pl-12 pr-4 text-foreground outline-none transition-all placeholder:text-foreground/35 focus:bg-background focus:ring-1 ${
+                                                        errors.name
+                                                            ? "border-red-500/50 focus:border-red-500 focus:ring-red-500/30"
+                                                            : "border-foreground/10 focus:border-indigo-500 focus:ring-indigo-500/30"
+                                                    }`}
                                                 />
+                                                {errors.name && (
+                                                    <p className="mt-1.5 text-xs text-red-500">{errors.name}</p>
+                                                )}
                                             </div>
 
                                             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -146,8 +213,17 @@ export function ApplyModal({ isOpen, onClose, jobTitle }: ApplyModalProps) {
                                                         required
                                                         type="tel"
                                                         placeholder="Mobile number"
-                                                        className="h-12 w-full rounded-2xl border border-foreground/10 bg-foreground/5 pl-12 pr-4 text-foreground outline-none transition-all placeholder:text-foreground/35 focus:border-indigo-500 focus:bg-background focus:ring-1 focus:ring-indigo-500/30"
+                                                        value={formData.phone}
+                                                        onChange={(e) => updateField("phone")(e.target.value.replace(/[^\d]/g, "").slice(0, 10))}
+                                                        className={`h-12 w-full rounded-2xl border bg-foreground/5 pl-12 pr-4 text-foreground outline-none transition-all placeholder:text-foreground/35 focus:bg-background focus:ring-1 ${
+                                                            errors.phone
+                                                                ? "border-red-500/50 focus:border-red-500 focus:ring-red-500/30"
+                                                                : "border-foreground/10 focus:border-indigo-500 focus:ring-indigo-500/30"
+                                                        }`}
                                                     />
+                                                    {errors.phone && (
+                                                        <p className="mt-1.5 text-xs text-red-500">{errors.phone}</p>
+                                                    )}
                                                 </div>
                                                 <div className="relative">
                                                     <Mail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground/30" />
@@ -155,8 +231,17 @@ export function ApplyModal({ isOpen, onClose, jobTitle }: ApplyModalProps) {
                                                         required
                                                         type="email"
                                                         placeholder="Email address"
-                                                        className="h-12 w-full rounded-2xl border border-foreground/10 bg-foreground/5 pl-12 pr-4 text-foreground outline-none transition-all placeholder:text-foreground/35 focus:border-indigo-500 focus:bg-background focus:ring-1 focus:ring-indigo-500/30"
+                                                        value={formData.email}
+                                                        onChange={(e) => updateField("email")(e.target.value)}
+                                                        className={`h-12 w-full rounded-2xl border bg-foreground/5 pl-12 pr-4 text-foreground outline-none transition-all placeholder:text-foreground/35 focus:bg-background focus:ring-1 ${
+                                                            errors.email
+                                                                ? "border-red-500/50 focus:border-red-500 focus:ring-red-500/30"
+                                                                : "border-foreground/10 focus:border-indigo-500 focus:ring-indigo-500/30"
+                                                        }`}
                                                     />
+                                                    {errors.email && (
+                                                        <p className="mt-1.5 text-xs text-red-500">{errors.email}</p>
+                                                    )}
                                                 </div>
                                             </div>
 
@@ -165,8 +250,17 @@ export function ApplyModal({ isOpen, onClose, jobTitle }: ApplyModalProps) {
                                                 <textarea
                                                     placeholder="Short note about your experience"
                                                     rows={4}
-                                                    className="w-full resize-none rounded-2xl border border-foreground/10 bg-foreground/5 py-3 pl-12 pr-4 text-foreground outline-none transition-all placeholder:text-foreground/35 focus:border-indigo-500 focus:bg-background focus:ring-1 focus:ring-indigo-500/30"
+                                                    value={formData.message}
+                                                    onChange={(e) => updateField("message")(e.target.value)}
+                                                    className={`w-full resize-none rounded-2xl border bg-foreground/5 py-3 pl-12 pr-4 text-foreground outline-none transition-all placeholder:text-foreground/35 focus:bg-background focus:ring-1 ${
+                                                        errors.message
+                                                            ? "border-red-500/50 focus:border-red-500 focus:ring-red-500/30"
+                                                            : "border-foreground/10 focus:border-indigo-500 focus:ring-indigo-500/30"
+                                                    }`}
                                                 />
+                                                {errors.message && (
+                                                    <p className="mt-1.5 text-xs text-red-500">{errors.message}</p>
+                                                )}
                                             </div>
 
                                             <div>

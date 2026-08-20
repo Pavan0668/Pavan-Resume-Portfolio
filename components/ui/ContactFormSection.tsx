@@ -307,12 +307,14 @@ export default function ContactFormSection() {
 
         if (!formData.email.trim()) {
             newErrors.email = "Email is required";
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-            newErrors.email = "Please enter a valid email address";
+        } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) {
+            newErrors.email = "Please enter a valid email address (e.g. name@example.com)";
         }
 
-        if (formData.phone && !/^[+\d][\d\s-]{7,}$/.test(formData.phone)) {
-            newErrors.phone = "Please enter a valid phone number";
+        if (!formData.phone.trim()) {
+            newErrors.phone = "Phone number is required";
+        } else if (!/^\d{10}$/.test(formData.phone)) {
+            newErrors.phone = "Phone number must be exactly 10 digits (numbers only)";
         }
 
         if (!formData.service) {
@@ -329,7 +331,7 @@ export default function ContactFormSection() {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!validateForm()) {
@@ -340,8 +342,21 @@ export default function ContactFormSection() {
 
         setStatus("loading");
 
-        // Simulate API call
-        setTimeout(() => {
+        try {
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || "Failed to send message");
+            }
+
             setStatus("success");
             setFormData(initialFormData);
 
@@ -349,7 +364,15 @@ export default function ContactFormSection() {
             setTimeout(() => {
                 setStatus("idle");
             }, 5000);
-        }, 2000);
+        } catch (error) {
+            console.error("Contact form error:", error);
+            setStatus("error");
+
+            // Reset after error
+            setTimeout(() => {
+                setStatus("idle");
+            }, 4000);
+        }
     };
 
     const updateField = (field: keyof FormData) => (value: string) => {
@@ -509,8 +532,9 @@ export default function ContactFormSection() {
                                                     icon={Phone}
                                                     type="tel"
                                                     value={formData.phone}
-                                                    onChange={updateField("phone")}
+                                                    onChange={(value) => updateField("phone")(value.replace(/[^\d]/g, "").slice(0, 10))}
                                                     error={errors.phone}
+                                                    required
                                                 />
                                                 <FloatingInput
                                                     id="company"
@@ -537,13 +561,13 @@ export default function ContactFormSection() {
                                                     aria-invalid={!!errors.service}
                                                 >
                                                     <option value="" disabled>Select Service *</option>
-                                                    <option value="managed-it-support">Managed IT Support</option>
-                                                    <option value="cloud-infrastructure">Cloud Infrastructure</option>
                                                     <option value="ai-automation">AI & Automation</option>
-                                                    <option value="web-development">Website Development</option>
-                                                    <option value="security">Security & Surveillance</option>
+                                                    <option value="cloud-infrastructure">Cloud Infrastructure</option>
                                                     <option value="consulting">IT Consulting</option>
+                                                    <option value="managed-it-support">Managed IT Support</option>
                                                     <option value="other">Other</option>
+                                                    <option value="security">Security & Surveillance</option>
+                                                    <option value="web-development">Website Development</option>
                                                 </select>
                                                 <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
                                                     <ArrowRight className="w-4 h-4 text-foreground/40 rotate-90" />

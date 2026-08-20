@@ -80,9 +80,9 @@ function useTypewriter(words: string[], speed = 35, startDelay = 500, pauseBetwe
     return { displayText, isTyping };
 }
 
-// Magnetic button component
+// Magnetic button wrapper (renders a div to avoid nested buttons)
 function MagneticButton({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-    const ref = useRef<HTMLButtonElement>(null);
+    const ref = useRef<HTMLDivElement>(null);
 
     const handleMouseMove = (e: React.MouseEvent) => {
         const button = ref.current;
@@ -100,14 +100,14 @@ function MagneticButton({ children, className = "" }: { children: React.ReactNod
     };
 
     return (
-        <button
+        <div
             ref={ref}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             className={`transition-transform duration-300 ease-out ${className}`}
         >
             {children}
-        </button>
+        </div>
     );
 }
 

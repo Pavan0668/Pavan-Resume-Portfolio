@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 import { useTheme } from "next-themes";
 import { ThemeToggle } from "./ThemeToggle";
@@ -13,9 +14,9 @@ const navItems = [
         name: "Company",
         items: [
             { name: "About Us", href: "/company#about-us" },
-            { name: "Achievements", href: "/company#achievements" },
-            { name: "Partners", href: "/company#partners" },
             { name: "Mission & Vision", href: "/company#mission-vision" },
+            { name: "Achievements", href: "/company#achievements" },
+            { name: "Partners", href: "/company#partners" },            
         ],
     },
     {
@@ -43,6 +44,22 @@ export default function Navbar() {
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
     const { resolvedTheme } = useTheme();
     const lastScrollY = useRef(0);
+    const pathname = usePathname();
+    const router = useRouter();
+
+    const handleContactClick = (e: React.MouseEvent) => {
+        setIsOpen(false);
+
+        // If already on contact page, just scroll to the form
+        if (pathname === "/contact") {
+            e.preventDefault();
+            document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
+            return;
+        }
+
+        // Otherwise navigate to contact page with hash for the form
+        router.push("/contact#contact-form");
+    };
 
     useEffect(() => {
         lastScrollY.current = window.scrollY;
@@ -173,7 +190,8 @@ export default function Navbar() {
                                     </div>
 
                                     <Link
-                                        href="/contact"
+                                        href="/contact#contact-form"
+                                        onClick={handleContactClick}
                                         className="hidden rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all hover:-translate-y-0.5 hover:bg-indigo-700 md:inline-flex"
                                     >
                                         Contact Us
@@ -209,8 +227,8 @@ export default function Navbar() {
                             ))}
                             <div className="mt-6">
                                 <Link
-                                    href="/contact"
-                                    onClick={() => setIsOpen(false)}
+                                    href="/contact#contact-form"
+                                    onClick={handleContactClick}
                                     className="flex w-full items-center justify-center rounded-full bg-indigo-600 px-5 py-4 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all active:scale-95"
                                 >
                                     Contact Us

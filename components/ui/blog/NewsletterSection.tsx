@@ -2,23 +2,59 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, Mail, Sparkles, Bell, Zap } from "lucide-react";
+import { CheckCircle2, Mail, Sparkles, Bell, Zap, Loader2, AlertCircle } from "lucide-react";
+
+type SubscribeStatus = "idle" | "loading" | "success" | "error";
 
 export function NewsletterSection() {
-    const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+    const [status, setStatus] = useState<SubscribeStatus>("idle");
     const [email, setEmail] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!email) return;
-        setStatus("loading");
 
-        // Simulate API call
-        setTimeout(() => {
+        // Validate email format
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(email)) {
+            setErrorMsg("Please enter a valid email address");
+            setStatus("error");
+            setTimeout(() => setStatus("idle"), 3000);
+            return;
+        }
+
+        setStatus("loading");
+        setErrorMsg("");
+
+        try {
+            const response = await fetch("/api/subscribe", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || "Failed to subscribe");
+            }
+
             setStatus("success");
             setEmail("");
+            setTimeout(() => setStatus("idle"), 5000);
+        } catch (error) {
+            console.error("Subscription error:", error);
+            setErrorMsg(
+                error instanceof Error
+                    ? error.message
+                    : "Something went wrong. Please try again."
+            );
+            setStatus("error");
             setTimeout(() => setStatus("idle"), 4000);
-        }, 2000);
+        }
     };
 
     return (
@@ -141,9 +177,8 @@ export function NewsletterSection() {
                                             >
                                                 <div className="flex-1 h-14 rounded-2xl bg-foreground/5 animate-pulse" />
                                                 <div className="h-14 px-8 rounded-2xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center gap-3">
-                                                    <div className="h-2 w-2 bg-indigo-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                                                    <div className="h-2 w-2 bg-indigo-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                                                    <div className="h-2 w-2 bg-indigo-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                                                    <Loader2 className="w-5 h-5 text-indigo-500 animate-spin" />
+                                                    <span className="text-sm font-semibold text-indigo-600 dark:text-cyan-400">Subscribing...</span>
                                                 </div>
                                             </motion.div>
                                         )}
@@ -157,6 +192,20 @@ export function NewsletterSection() {
                                             >
                                                 <CheckCircle2 className="w-6 h-6 animate-check-pop" />
                                                 <span className="font-bold">Subscribed Successfully!</span>
+                                            </motion.div>
+                                        )}
+
+                                        {status === "error" && (
+                                            <motion.div
+                                                key="error"
+                                                initial={{ opacity: 0, scale: 0.9 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                className="h-14 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-center justify-center gap-3 text-red-600 dark:text-red-400 animate-shake"
+                                            >
+                                                <AlertCircle className="w-5 h-5" />
+                                                <span className="font-bold">
+                                                    {errorMsg || "Failed to subscribe. Please try again."}
+                                                </span>
                                             </motion.div>
                                         )}
                                     </AnimatePresence>
