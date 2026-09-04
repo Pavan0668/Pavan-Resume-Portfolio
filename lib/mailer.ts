@@ -66,10 +66,40 @@ export function createSmtpTransporter(): Transporter | null {
 }
 
 /**
- * Generates a friendly error message when SMTP is not configured.
+ * Returns the list of required SMTP environment variables that are currently
+ * missing from the runtime environment. Used to produce helpful, specific
+ * error messages for deployment troubleshooting (e.g. on Vercel or GitHub).
  */
-export function getSmtpConfigError(): string {
-  return "Email service is not configured. Please set SMTP_HOST, SMTP_PORT, SMTP_USER, and SMTP_PASSWORD environment variables in your deployment platform.";
+export function getMissingSmtpEnvVars(): string[] {
+  const requiredVars: Record<string, string | undefined> = {
+    SMTP_HOST: process.env.SMTP_HOST,
+    SMTP_PORT: process.env.SMTP_PORT,
+    SMTP_USER: process.env.SMTP_USER,
+    SMTP_PASSWORD: process.env.SMTP_PASSWORD,
+  };
+
+  const missing: string[] = [];
+  for (const [name, value] of Object.entries(requiredVars)) {
+    if (!value) {
+      missing.push(name);
+    }
+  }
+  return missing;
+}
+
+/**
+ * Generates a friendly error message when SMTP is not configured.
+ * When any variable is missing, it names the specific ones so the issue is
+ * easy to diagnose on the deployment platform (e.g. Vercel).
+ */
+export function getSmtpConfigError(missingVars?: string[]): string {
+  const missing = missingVars ?? getMissingSmtpEnvVars();
+  if (missing.length === 0) {
+    return "Email service is not configured. Please set SMTP_HOST, SMTP_PORT, SMTP_USER, and SMTP_PASSWORD environment variables in your deployment platform.";
+  }
+  return `Email service is not configured. Missing environment variable(s): ${missing.join(
+    ", "
+  )}. Please set them in your deployment platform (e.g. Vercel).`;
 }
 
 /**
@@ -79,8 +109,9 @@ export function getSmtpConfigError(): string {
 export function requireSmtpConfig(): SmtpConfig {
   const config = getSmtpConfig();
   if (!config) {
+    const missing = getMissingSmtpEnvVars().join(", ");
     throw new Error(
-      "SMTP is not configured. Set the SMTP_HOST, SMTP_PORT, SMTP_USER, and SMTP_PASSWORD environment variables. For local development, copy .env.example to .env.local and fill in your credentials."
+      `SMTP is not configured. Missing environment variable(s): ${missing}. Set the SMTP_HOST, SMTP_PORT, SMTP_USER, and SMTP_PASSWORD environment variables. For local development, copy .env.example to .env.local and fill in your credentials.`
     );
   }
   return config;
