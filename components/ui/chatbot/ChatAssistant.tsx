@@ -11,6 +11,23 @@ interface Message {
     timestamp: Date;
 }
 
+// Public Cloudflare AI RAG chat endpoint (the frontend only ever calls this - no secrets here)
+const CHAT_API_URL = "https://jkc-ai-chatbot.jkcsolutions1.workers.dev/chat";
+
+// Friendly fallback used when the API fails or returns an unusable response
+const API_FALLBACK_MESSAGE =
+    "I'm sorry, I couldn't process your request right now. Please try again or contact our team.";
+
+// Messages that clearly indicate the user wants human follow-up, so contact
+// details should be collected instead of calling the AI API
+const CONTACT_INTENT_PATTERN =
+    /(quote|callback|call me|contact me|email me|speak to|speak with|talk to|get in touch|reach out|live agent|human agent|real person|consultation|appointment|book a|schedule a|demo)/i;
+
+interface ChatApiResponse {
+    success?: boolean;
+    answer?: string;
+}
+
 export function ChatAssistant() {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<Message[]>([
@@ -33,6 +50,61 @@ export function ChatAssistant() {
         return text.replace(/\D/g, "").length >= 8;
     };
 
+    // Generates the bot reply: the contact-collection workflow is handled locally,
+    // while all general/knowledge questions are answered by the Cloudflare AI RAG API.
+    const generateBotResponse = async (text: string): Promise<string> => {
+        const hasContact = containsContactInfo(text);
+
+        // 1) The bot already asked for contact details - collect them here (no API call)
+        if (awaitingContact) {
+            if (hasContact) {
+                setAwaitingContact(false);
+                setContactProvided(true);
+                return "Thank you for your message. Our team will assist you soon.";
+            }
+            return "Please provide a valid Email or Contact Number so our team can reach you.";
+        }
+
+        // 2) The user shared their contact details together with the message
+        if (hasContact) {
+            setContactProvided(true);
+            return "Thank you for your message. Our team will assist you soon.";
+        }
+
+        // 3) The user explicitly wants human follow-up (quote, callback, etc.)
+        if (!contactProvided && CONTACT_INTENT_PATTERN.test(text)) {
+            setAwaitingContact(true);
+            return "Please provide your Email or Contact Number so our team can assist you.";
+        }
+
+        // 4) Normal question -> real Cloudflare AI RAG API
+        try {
+            const response = await fetch(CHAT_API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ message: text }),
+            });
+
+            if (!response.ok) {
+                return API_FALLBACK_MESSAGE;
+            }
+
+            const data = (await response.json()) as ChatApiResponse | null;
+
+            // Display the RAG answer exactly as returned by the backend
+            if (data?.success && typeof data.answer === "string" && data.answer.trim().length > 0) {
+                return data.answer;
+            }
+
+            return API_FALLBACK_MESSAGE;
+        } catch (error) {
+            console.error("Chatbot API error:", error);
+            return API_FALLBACK_MESSAGE;
+        }
+    };
+
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
@@ -42,7 +114,8 @@ export function ChatAssistant() {
     }, [messages, isTyping]);
 
     const handleSend = async () => {
-        if (!inputValue.trim()) return;
+        // Ignore empty input and prevent duplicate requests while a reply is pending
+        if (!inputValue.trim() || isTyping) return;
 
         const userMessage: Message = {
             id: Date.now().toString(),
@@ -55,53 +128,18 @@ export function ChatAssistant() {
         setInputValue("");
         setIsTyping(true);
 
-        // Simulate AI thinking
-        setTimeout(() => {
-            const lowInput = userMessage.text.toLowerCase();
-            const hasContact = containsContactInfo(userMessage.text);
-            let botResponse = "";
+        // Get the bot reply (contact workflow handled locally, questions via the Cloudflare AI RAG API)
+        const botResponse = await generateBotResponse(userMessage.text);
 
-            if (awaitingContact) {
-                // The bot already asked for contact details in the previous turn
-                if (hasContact) {
-                    botResponse = "Thank you for your message. Our team will assist you soon.";
-                    setAwaitingContact(false);
-                    setContactProvided(true);
-                } else {
-                    botResponse = "Please provide a valid Email or Contact Number so our team can reach you.";
-                }
-            } else if (hasContact) {
-                // The user shared their contact details together with the message
-                botResponse = "Thank you for your message. Our team will assist you soon.";
-                setContactProvided(true);
-            } else {
-                let info = "";
-                if (lowInput.includes("service")) {
-                    info = "We offer a wide range of services including Managed IT Support, Cloud Infrastructure, Security, and AI Automation solutions (Generative & Agentic AI).";
-                } else if (lowInput.includes("contact") || lowInput.includes("call") || lowInput.includes("email")) {
-                    info = "You can reach us at contact@jkcomputers.com or call us at +1 (555) 123-4567. We are also available at 123 Innovation Drive, Tech City.";
-                }
+        const botMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            text: botResponse,
+            sender: "bot",
+            timestamp: new Date(),
+        };
 
-                if (contactProvided) {
-                    // Contact details were already collected earlier in the conversation
-                    botResponse = info || "Thank you for your message. Our team will assist you soon.";
-                } else {
-                    // Ask for contact details before closing the loop
-                    botResponse = `${info ? `${info}\n\n` : ""}Please provide your Email or Contact Number so our team can assist you.`;
-                    setAwaitingContact(true);
-                }
-            }
-
-            const botMessage: Message = {
-                id: (Date.now() + 1).toString(),
-                text: botResponse,
-                sender: "bot",
-                timestamp: new Date(),
-            };
-
-            setMessages((prev) => [...prev, botMessage]);
-            setIsTyping(false);
-        }, 1500);
+        setMessages((prev) => [...prev, botMessage]);
+        setIsTyping(false);
     };
 
     return (
