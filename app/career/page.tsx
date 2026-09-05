@@ -17,7 +17,7 @@ const jobs = [
         skills: ["Bsc.IT", "Diploma IT", "Hardware Networking course", "Good Technical knowledge", "Positive thinker", "MS Office", "Outlook"],
         location: "Mumbai, Maharashtra",
         department: "IT Support & Infrastructure",
-        isExpired: true,
+        isExpired: false,
     },
     {
         title: ".NET Developer (Fresher)",
@@ -104,14 +104,14 @@ export default function CareerPage() {
                         </div>
                         <h2 className="text-3xl font-black tracking-tight md:text-4xl">Open opportunities and future tracks</h2>
                         <p className="mt-4 max-w-xl text-foreground/65">
-                            The current openings are closed, but the career page now acts as a future-facing talent hub. We keep strong profiles ready for the next wave of roles.
+                            We are actively hiring an IT Administrator to strengthen our IT Support &amp; Infrastructure team. We also keep strong profiles ready for the next wave of roles across software and infrastructure.
                         </p>
                     </div>
 
                     <div className="flex flex-wrap gap-3">
                         <div className="flex items-center gap-2 rounded-full border border-foreground/10 bg-foreground/5 px-4 py-2 text-sm font-medium text-foreground/70">
                             <div className="h-2 w-2 rounded-full bg-emerald-500" />
-                            {activeRoles} Active Roles
+                            {activeRoles} Active {activeRoles === 1 ? "Role" : "Roles"}
                         </div>
                         <a
                             href="#talent-network"
