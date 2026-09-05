@@ -11,21 +11,21 @@ import { ArrowRight, BrainCircuit, Rocket, ShieldCheck, Sparkles, Users } from "
 
 const jobs = [
     {
+        title: "IT Administrator",
+        description:
+            "Repairing & maintenance of computer peripherals\nTroubleshooting\nInstallation of operating system\nTroubleshooting of mails\nAssembling & disassembling of computer\nBackup & restoring Data\nCreating & management of user account\nIP Addressing\nCrimping, I/O Punching cables\nConfigure Firewall, Router, Switch, Access point",
+        skills: ["Bsc.IT", "Diploma IT", "Hardware Networking course", "Good Technical knowledge", "Positive thinker", "MS Office", "Outlook"],
+        location: "Mumbai, Maharashtra",
+        department: "IT Support & Infrastructure",
+        isExpired: true,
+    },
+    {
         title: ".NET Developer (Fresher)",
         description:
             "We are looking for an enthusiastic and talented Fresher .NET Developer to join our growing development team. You will work on building scalable, high-performance web applications and services using the latest .NET ecosystem.\n\nKey Responsibilities:\n- Assist in the development of robust web applications\n- Write clean, maintainable, and efficient code\n- Collaborate with senior developers and cross-functional teams\n- Participate in code reviews and troubleshooting",
         skills: [".NET Core", "C#", "ASP.NET MVC", "SQL Server", "REST APIs", "Entity Framework", "JavaScript/React"],
         location: "Pune, Maharashtra",
         department: "Software Development",
-        isExpired: true,
-    },
-    {
-        title: "Hardware / Networking Engineering",
-        description:
-            "Repairing & maintenance of computer peripherals\nTroubleshooting\nInstallation of operating system\nTroubleshooting of mails\nAssembling & disassembling of computer\nBackup & restoring Data\nCreating & management of user account\nIP Addressing\nCrimping, I/O Punching cables\nConfigure Firewall, Router, Switch, Access point",
-        skills: ["Bsc.IT", "Diploma IT", "Hardware Networking course", "Good Technical knowledge", "Positive thinker", "MS Office", "Outlook"],
-        location: "Mumbai, Maharashtra",
-        department: "IT Support & Infrastructure",
         isExpired: true,
     },
 ];
