@@ -23,7 +23,15 @@ export function ChatAssistant() {
     ]);
     const [inputValue, setInputValue] = useState("");
     const [isTyping, setIsTyping] = useState(false);
+    const [awaitingContact, setAwaitingContact] = useState(false);
+    const [contactProvided, setContactProvided] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+
+    // Detects whether a message contains an email address or a phone number
+    const containsContactInfo = (text: string) => {
+        if (/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/.test(text)) return true;
+        return text.replace(/\D/g, "").length >= 8;
+    };
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -49,13 +57,39 @@ export function ChatAssistant() {
 
         // Simulate AI thinking
         setTimeout(() => {
-            let botResponse = "Thank you for your message. Our team will assist you soon.";
             const lowInput = userMessage.text.toLowerCase();
+            const hasContact = containsContactInfo(userMessage.text);
+            let botResponse = "";
 
-            if (lowInput.includes("service")) {
-                botResponse = "We offer a wide range of services including Managed IT Support, Cloud Infrastructure, Security, and AI Automation solutions (Generative & Agentic AI).";
-            } else if (lowInput.includes("contact") || lowInput.includes("call") || lowInput.includes("email")) {
-                botResponse = "You can reach us at contact@jkcomputers.com or call us at +1 (555) 123-4567. We are also available at 123 Innovation Drive, Tech City.";
+            if (awaitingContact) {
+                // The bot already asked for contact details in the previous turn
+                if (hasContact) {
+                    botResponse = "Thank you for your message. Our team will assist you soon.";
+                    setAwaitingContact(false);
+                    setContactProvided(true);
+                } else {
+                    botResponse = "Please provide a valid Email or Contact Number so our team can reach you.";
+                }
+            } else if (hasContact) {
+                // The user shared their contact details together with the message
+                botResponse = "Thank you for your message. Our team will assist you soon.";
+                setContactProvided(true);
+            } else {
+                let info = "";
+                if (lowInput.includes("service")) {
+                    info = "We offer a wide range of services including Managed IT Support, Cloud Infrastructure, Security, and AI Automation solutions (Generative & Agentic AI).";
+                } else if (lowInput.includes("contact") || lowInput.includes("call") || lowInput.includes("email")) {
+                    info = "You can reach us at contact@jkcomputers.com or call us at +1 (555) 123-4567. We are also available at 123 Innovation Drive, Tech City.";
+                }
+
+                if (contactProvided) {
+                    // Contact details were already collected earlier in the conversation
+                    botResponse = info || "Thank you for your message. Our team will assist you soon.";
+                } else {
+                    // Ask for contact details before closing the loop
+                    botResponse = `${info ? `${info}\n\n` : ""}Please provide your Email or Contact Number so our team can assist you.`;
+                    setAwaitingContact(true);
+                }
             }
 
             const botMessage: Message = {
@@ -78,7 +112,7 @@ export function ChatAssistant() {
                         initial={{ opacity: 0, scale: 0.9, y: 20, transformOrigin: "bottom right" }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="mb-4 w-[350px] md:w-[400px] h-[500px] glass-card rounded-3xl shadow-2xl border border-foreground/10 flex flex-col overflow-hidden"
+                        className="mb-4 w-[350px] md:w-[400px] h-[500px] bg-background rounded-3xl shadow-2xl border border-foreground/10 flex flex-col overflow-hidden"
                     >
                         {/* Header */}
                         <div className="p-4 border-b border-foreground/10 bg-indigo-600 dark:bg-indigo-900/50 flex items-center justify-between text-white">
@@ -111,7 +145,7 @@ export function ChatAssistant() {
                                     key={msg.id}
                                     className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
                                 >
-                                    <div className={`max-w-[80%] p-3 rounded-2xl text-sm ${msg.sender === "user"
+                                    <div className={`max-w-[80%] p-3 rounded-2xl text-sm whitespace-pre-line ${msg.sender === "user"
                                             ? "bg-indigo-600 text-white rounded-tr-none shadow-lg shadow-indigo-600/10"
                                             : "bg-foreground/5 text-foreground rounded-tl-none border border-foreground/10"
                                         }`}>
@@ -135,14 +169,14 @@ export function ChatAssistant() {
                         </div>
 
                         {/* Input Area */}
-                        <div className="p-4 border-t border-foreground/10 bg-background/50">
+                        <div className="p-4 border-t border-foreground/10 bg-background">
                             <div className="relative flex items-center gap-2">
                                 <input
                                     type="text"
                                     value={inputValue}
                                     onChange={(e) => setInputValue(e.target.value)}
                                     onKeyPress={(e) => e.key === "Enter" && handleSend()}
-                                    placeholder="Type a message..."
+                                    placeholder={awaitingContact ? "Enter your Email or Contact Number..." : "Type a message..."}
                                     className="flex-1 bg-foreground/5 border border-foreground/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500/50 transition-all pr-12"
                                 />
                                 <button
