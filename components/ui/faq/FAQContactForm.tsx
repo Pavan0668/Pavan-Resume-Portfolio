@@ -415,8 +415,8 @@ export function FAQContactForm() {
                                 <ContactInfoItem
                                     icon={Mail}
                                     title="Email us directly"
-                                    value="jkcsolutionspune@gmail.com"
-                                    href="mailto:jkcsolutionspune@gmail.com"
+                                    value="info@jkcsolutions.com"
+                                    href="mailto:info@jkcsolutions.com"
                                 />
                                 <ContactInfoItem
                                     icon={Phone}

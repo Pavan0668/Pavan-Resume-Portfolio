@@ -103,7 +103,7 @@ export default function Footer() {
                         <div className="flex flex-col gap-3 text-sm text-foreground/70">
                             <div className="flex items-start gap-3"><MapPin className="w-4 h-4 text-indigo-500 mt-0.5 shrink-0" /> <span>B Wing 501, Victory Park Building, Chandavarkar Road, Borivali West, Mumbai 400092</span></div>
                             <div className="flex items-center gap-3"><Phone className="w-4 h-4 text-indigo-500 shrink-0" /> <a href="tel:+919324310387" className="hover:text-indigo-600 dark:hover:text-cyan-400 transition-colors">+91 9324310387</a></div>
-                            <div className="flex items-center gap-3"><Mail className="w-4 h-4 text-indigo-500 shrink-0" /> <a href="mailto:jkcsolutionspune@gmail.com" className="hover:text-indigo-600 dark:hover:text-cyan-400 transition-colors">jkcsolutionspune@gmail.com</a></div>
+                            <div className="flex items-center gap-3"><Mail className="w-4 h-4 text-indigo-500 shrink-0" /> <a href="mailto:info@jkcsolutions.com" className="hover:text-indigo-600 dark:hover:text-cyan-400 transition-colors">info@jkcsolutions.com</a></div>
                         </div>
                     </div>
 

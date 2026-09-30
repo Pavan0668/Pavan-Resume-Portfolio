@@ -427,8 +427,8 @@ export default function ContactFormSection() {
                                 <ContactInfoItem
                                     icon={Mail}
                                     title="Email"
-                                    value="jkcsolutionspune@gmail.com"
-                                    href="mailto:jkcsolutionspune@gmail.com"
+                                    value="info@jkcsolutions.com"
+                                    href="mailto:info@jkcsolutions.com"
                                 />
                                 <ContactInfoItem
                                     icon={Phone}

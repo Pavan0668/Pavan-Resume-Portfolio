@@ -387,8 +387,8 @@ export function FAQHero() {
                         <QuickInfoCard
                             icon={Mail}
                             label="Email"
-                            value="jkcsolutionspune@gmail.com"
-                            href="mailto:jkcsolutionspune@gmail.com"
+                            value="info@jkcsolutions.com"
+                            href="mailto:info@jkcsolutions.com"
                             delay={0.9}
                         />
                         <QuickInfoCard

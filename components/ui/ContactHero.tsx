@@ -394,8 +394,8 @@ export default function ContactHero() {
                         <ContactInfoCard
                             icon={Mail}
                             label="Email"
-                            value="jkcsolutionspune@gmail.com"
-                            href="mailto:jkcsolutionspune@gmail.com"
+                            value="info@jkcsolutions.com"
+                            href="mailto:info@jkcsolutions.com"
                             delay={1.0}
                         />
                         <ContactInfoCard

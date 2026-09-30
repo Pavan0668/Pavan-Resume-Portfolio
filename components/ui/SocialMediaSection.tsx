@@ -175,10 +175,10 @@ export default function SocialMediaSection() {
                     <p className="text-foreground/50 text-sm">
                         Prefer email? Reach us directly at{" "}
                         <a
-                            href="mailto:jkcsolutionspune@gmail.com"
+                            href="mailto:info@jkcsolutions.com"
                             className="text-indigo-600 dark:text-cyan-400 font-semibold hover:underline transition-colors"
                         >
-                            jkcsolutionspune@gmail.com
+                            info@jkcsolutions.com
                         </a>
                     </p>
                 </motion.div>
