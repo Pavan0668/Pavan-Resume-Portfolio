@@ -101,7 +101,7 @@ export default function AboutUsSection() {
                         transition={{ duration: 0.7 }}
                         className="lg:col-span-6"
                     >
-                        <div className="rounded-[2rem] border border-white/10 bg-white/5 p-7 shadow-[0_24px_80px_rgba(2,6,23,0.10)] backdrop-blur-xl md:p-8">
+                        <div className="min-w-0 w-full overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-7 shadow-[0_24px_80px_rgba(2,6,23,0.10)] backdrop-blur-xl md:p-8">
                             <p className="text-base leading-relaxed text-foreground/75 md:text-lg">
                                 JKC Total IT Solutions designs and delivers complete technology ecosystems for
                                 businesses that need stability today and adaptability tomorrow. We combine
@@ -115,7 +115,7 @@ export default function AboutUsSection() {
                                 and ready for the next wave of innovation.
                             </p>
 
-                            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+                            <div className="mt-8 grid min-w-0 gap-4 sm:grid-cols-3">
                                 {pillars.map((pillar, index) => {
                                     const Icon = pillar.icon;
                                     return (
@@ -125,15 +125,15 @@ export default function AboutUsSection() {
                                             whileInView={{ opacity: 1, y: 0 }}
                                             viewport={{ once: true }}
                                             transition={{ delay: index * 0.08, duration: 0.45 }}
-                                            className="group rounded-2xl border border-white/10 bg-background/70 p-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/30 hover:shadow-[0_16px_40px_rgba(99,102,241,0.12)]"
+                                            className="group min-w-0 w-full overflow-hidden rounded-2xl border border-white/10 bg-background/70 p-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/30 hover:shadow-[0_16px_40px_rgba(99,102,241,0.12)]"
                                         >
                                             <div className="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500/15 to-cyan-400/15 ring-1 ring-inset ring-white/10">
                                                 <Icon className="h-5 w-5 text-cyan-400" />
                                             </div>
-                                            <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-foreground">
+                                            <h3 className="min-w-0 break-words text-[13px] font-bold uppercase leading-snug tracking-[0.12em] text-foreground [overflow-wrap:anywhere] hyphens-auto">
                                                 {pillar.title}
                                             </h3>
-                                            <p className="mt-2 text-sm leading-relaxed text-foreground/65">
+                                            <p className="mt-2 min-w-0 break-words text-sm leading-relaxed text-foreground/65 [overflow-wrap:anywhere]">
                                                 {pillar.text}
                                             </p>
                                         </motion.div>
